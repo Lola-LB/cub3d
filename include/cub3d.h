@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/22 17:00:01 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:43:23 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define MULT_EXIT "Map contains multiple exits"
 # define NO_EXIT "Map does not contain any exit"
@@ -36,11 +36,11 @@
 # define A 97  //65361 //123
 # define S 115 //65364 //125
 # define D 100 //65363 //124
-//# define XK_Escape 53
+# define XK_Escape 53
 
 # include "libft.h"
 # include "mlx.h"
-# include <X11/keysym.h>
+// # include <X11/keysym.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>

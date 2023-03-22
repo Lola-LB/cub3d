@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:12:48 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/07 18:02:29 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:21:44 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 void	expand_path(char **map, int px, int py)
 {

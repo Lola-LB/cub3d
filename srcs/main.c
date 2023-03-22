@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/07 17:22:39 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:38:42 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 int	main(int ac, char **av)
 {
@@ -37,7 +37,7 @@ void	launch_game(t_param	*param)
 		ft_error(param, MLX_ERROR);
 	param->mlx = mlx;
 	win = mlx_new_window(mlx, param->map.width * NB_PIXEL,
-			param->map.len * NB_PIXEL, "Welcome to So Long !");
+			param->map.len * NB_PIXEL, "Welcome to Cub3d!");
 	param->win = win;
 	if (!win)
 		ft_error(param, MLX_ERROR);
@@ -67,7 +67,7 @@ int	end_game(t_param *param)
 		mlx_destroy_window(param->mlx, param->win);
 	if (param && param->mlx)
 	{
-		mlx_destroy_display(param->mlx);
+		// mlx_destroy_display(param->mlx);
 		free(param->mlx);
 	}
 	if (param)

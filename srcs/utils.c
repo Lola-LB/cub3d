@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/06 19:23:14 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:21:44 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 void	free_map(t_map map)
 {

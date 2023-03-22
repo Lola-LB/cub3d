@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:24:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:16:49 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:21:44 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 void	closed_walls(t_param *param)
 {

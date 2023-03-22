@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   score.c                                            :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 20:32:08 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 18:44:30 by lle-bret         ###   ########.fr       */
+/*   Created: 2023/03/22 20:02:55 by lle-bret          #+#    #+#             */
+/*   Updated: 2023/03/22 20:03:41 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+# include "libft.h"
 
-void	display_score(t_param *param)
+char	*ft_strjoins(char *s1, char *s2, size_t len)
 {
-	int	score;
-	int	number;
-	int	i;
+	size_t	i;
+	char	*buff;
 
-	score = param->move;
-	ft_printf("%d\n", score);
-	i = 0;
-	while (score)
-	{
-		number = score % 10;
-		score /= 10;
-		mlx_put_image_to_window(param->mlx, param->win,
-			param->img[NUM_OFFSET + number].img,
-			param->map.width * NB_PIXEL - i * 37 - 37, 3);
-		++i;
-	}
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
+	if (!s1 || !s2)
+		return (NULL);
+	i = ft_strlen(s1);
+	buff = malloc(sizeof(char) * (i + len + 1));
+	if (!buff)
+		return (NULL);
+	ft_memcpy(buff, s1, i);
+	ft_memcpy(buff + i, s2, (len + 1));
+	free(s1);
+	return (buff);
 }

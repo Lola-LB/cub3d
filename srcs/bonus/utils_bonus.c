@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/07 17:24:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:04:56 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_map(t_map map)
 
 void	ft_error(t_param *param, char *error)
 {
-	ft_printf("Error\n%s\n", error);
+	printf("Error\n%s\n", error);
 	end_game(param);
 }
 

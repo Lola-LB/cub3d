@@ -1,10 +1,17 @@
 SRCS		= main.c				\
 			  map_check.c			\
+			  display.c				\
+			  events.c				\
+			  map_char.c			\
+			  map_parse.c			\
+			  map_path.c			\
+			  utils.c				\
+			  score.c				\
 
 SRCS_BONUS	= main_bonus.c			\
 			  map_check_bonus.c		\
 
-OBJS		= $(addprefix srcs/mandatory/, $(SRCS:.c=.o))
+OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
 OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 
@@ -20,13 +27,13 @@ INCLUDE		= $(LIBFT_DIR)/libft.h	\
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-INC_FLAGS	= -I include/ -I mlx/
+INC_FLAGS	= -I include/ -I $(MLX_DIR)/ -I $(LIBFT_DIR)/
 
 CC			= cc
 
 AR			= ar rcs
 
-C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
+C_FLAGS		= -g3 -Wall -Wextra -Werror
 
 MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
 #MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
@@ -36,18 +43,22 @@ RM			= rm -f
 NAME		= cub3d
 
 %.o: %.c
-	$(CC) $(C_FLAGS) $(INC_FLAGS) -c $< -o $@
+	@$(CC) $(C_FLAGS) $(INC_FLAGS) -c $< -o $@
 
-$(NAME):	$(SUBDIRS) $(OBJS)
-	$(CC) $(C_FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME) 
+$(NAME):	subdirectory $(OBJS)
+	@echo "\033[92mBuilding cub3d...\033[0m"
+	@$(CC) $(C_FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 all:		$(NAME)
 
-$(SUBDIRS):
-	$(MAKE) -C $@
+subdirectory:
+	@echo "\033[92mBuilding mlx...\033[0m"
+	@$(MAKE) -s -C $(MLX_DIR)
+	@echo "\033[92mBuilding libft...\033[0m"
+	@$(MAKE) -s -C $(LIBFT_DIR)
 		
-bonus:		$(SUBDIRS) $(OBJS_BONUS)
-	$(CC) $(C_FLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+bonus:		subdirectory $(OBJS_BONUS)
+	@$(CC) $(C_FLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	@echo "\033[94mCleaning libft...\033[0m"

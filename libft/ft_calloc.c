@@ -6,26 +6,19 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:05:12 by lle-bret          #+#    #+#             */
-/*   Updated: 2022/11/07 16:06:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:56:24 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_calloc(size_t nmemb, size_t size)
 {
-	char				*buf;
-	size_t				i;
-	unsigned long long	test;
+	char	*buff;
 
-	test = ((unsigned long long) count) * ((unsigned long long) size);
-	if (test > SIZE_MAX)
+	buff = malloc(size * nmemb);
+	if (!buff)
 		return (NULL);
-	buf = malloc(count * size);
-	if (!buf)
-		return (buf);
-	i = 0;
-	while (i < size * count)
-		*(buf + i++) = 0;
-	return (buf);
+	ft_bzero(buff, (size * nmemb));
+	return (buff);
 }
