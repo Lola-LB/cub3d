@@ -1,12 +1,15 @@
 SRCS		= main.c				\
-			  map_check.c			\
-			  display.c				\
-			  events.c				\
-			  map_char.c			\
-			  map_parse.c			\
-			  map_path.c			\
+			  file_parsing.c		\
+			  read_data.c			\
+			  read_map.c			\
+			  validate_map.c		\
 			  utils.c				\
-			  score.c				\
+			#   map_check.c			\
+			#   display.c				\
+			#   events.c				\
+			#   map_char.c			\
+			#   map_path.c			\
+			#   score.c				\
 
 SRCS_BONUS	= main_bonus.c			\
 			  map_check_bonus.c		\
@@ -46,33 +49,44 @@ NAME		= cub3d
 	@$(CC) $(C_FLAGS) $(INC_FLAGS) -c $< -o $@
 
 $(NAME):	subdirectory $(OBJS)
-	@echo "\033[92mBuilding cub3d...\033[0m"
+	@echo "\033[90mBuilding cub3d...\033[0m"
 	@$(CC) $(C_FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	@echo "\033[92mDone !\033[0m"
 
 all:		$(NAME)
 
 subdirectory:
-	@echo "\033[92mBuilding mlx...\033[0m"
+	@echo "\033[90mBuilding mlx...\033[0m"
 	@$(MAKE) -s -C $(MLX_DIR)
-	@echo "\033[92mBuilding libft...\033[0m"
+	@echo "\033[90mBuilding libft...\033[0m"
 	@$(MAKE) -s -C $(LIBFT_DIR)
 		
 bonus:		subdirectory $(OBJS_BONUS)
 	@$(CC) $(C_FLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 clean:
-	@echo "\033[94mCleaning libft...\033[0m"
-	@$(MAKE) -s clean -C libft
-	@echo "\033[94mCleaning mlx...\033[0m"
-	@$(MAKE) -s clean -C $(MLX_DIR)
-	@echo "\033[94mCleaning project...\033[0m"
+	@echo "\033[90mCleaning project...\033[0m"
 	@$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF)
 	@echo "\033[92mClean done !\033[0m"
 
+clean_mlx:
+	@echo "\033[90mCleaning mlx...\033[0m"
+	@$(MAKE) -s clean -C $(MLX_DIR)
+	@echo "\033[92mClean done !\033[0m"
+
+clean_libft:
+	@echo "\033[90mCleaning libft...\033[0m"
+	@$(MAKE) -s clean -C libft
+	@echo "\033[92mClean done !\033[0m"
+
 fclean:		clean
-	@echo "\033[95mRemoving binaries...\033[0m"
+	@echo "\033[90mRemoving binaries...\033[0m"
+	@$(RM) $(NAME)
+	@echo "\033[92mFclean done !\033[0m"
+
+fclean_libft:		clean_libft
+	@echo "\033[90mRemoving binaries...\033[0m"
 	@$(MAKE) -s fclean -C libft
-	@$(RM) $(NAME) $(LIBFT)
 	@echo "\033[92mFclean done !\033[0m"
 
 re:		fclean all

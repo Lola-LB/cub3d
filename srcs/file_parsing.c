@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   score_bonus.c                                      :+:      :+:    :+:   */
+/*   file_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 20:32:08 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/22 19:21:44 by lle-bret         ###   ########.fr       */
+/*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
+/*   Updated: 2023/03/24 16:26:47 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	display_score(t_param *param)
+void	check_extension(char *file)
 {
-	int	score;
-	int	number;
-	int	i;
+	int	len;
 
-	score = param->move;
-	i = 0;
-	while (score)
-	{
-		number = score % 10;
-		score /= 10;
-		mlx_put_image_to_window(param->mlx, param->win,
-			param->img[NUM_OFFSET + number].img,
-			param->map.width * NB_PIXEL - i * 37 - 37, 3);
-		++i;
-	}
+	len = ft_strlen(file);
+	if (len < 5 || ft_strcmp(".cub", file + len - 4) != 0)
+		ft_error(NULL, "Map file must end with a .cub extension");
+}
+
+void	parse_file(char *file, t_param *param)
+{
+	int		fd;
+
+	check_extension(file);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error(param, FILE_ERROR);
+	read_data(fd, param);
+	read_map(fd, param);
 }

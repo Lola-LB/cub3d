@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 17:00:34 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/24 15:32:33 by lle-bret         ###   ########.fr       */
+/*   Created: 2023/03/24 13:37:17 by lle-bret          #+#    #+#             */
+/*   Updated: 2023/03/24 13:38:58 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-int	ft_abs(int n)
+void	ft_free(void **ar, int size)
 {
-	return ((n >= 0) * n - (n < 0) * n);
+	if (ar)
+	{
+		while (size)
+		{
+			if (ar[size - 1])
+				free(ar[size - 1]);
+			--size;
+		}
+		free(ar);
+	}
 }

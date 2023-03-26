@@ -54,8 +54,11 @@ SRCS		= ft_memset.c					\
 			  get_next_line.c				\
 			  get_next_line_utils.c			\
 			  get_next_line_bonus.c			\
-
-SRCS_BONUS	= ft_lstnew.c					\
+			  ft_free.c						\
+			  ft_arlen.c 					\
+			  ft_realloc.c 					\
+			  ft_abs.c 						\
+			  ft_lstnew.c					\
 		  	  ft_lstadd_front.c				\
 		  	  ft_lstsize.c					\
 		  	  ft_lstlast.c					\
@@ -64,10 +67,9 @@ SRCS_BONUS	= ft_lstnew.c					\
 		  	  ft_lstclear.c					\
 		  	  ft_lstiter.c					\
 		  	  ft_lstmap.c					\
+		  	  ft_strdigit.c					\
 
 OBJS		= $(SRCS:.c=.o)
-
-OBJS_BONUS	= $(SRCS_BONUS:.c=.o)
 
 HEADER		= -I ../include
 
@@ -89,9 +91,6 @@ $(NAME):	$(OBJS)
 
 all:		$(NAME)
 
-bonus:		$(OBJS) $(OBJS_BONUS)
-	$(AR) $(NAME) $^
-
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)
 
@@ -100,4 +99,4 @@ fclean:		clean
 
 re:		fclean all
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all clean fclean re

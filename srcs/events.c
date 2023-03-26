@@ -6,30 +6,30 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/22 19:21:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:59:28 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	swap_player(t_param *param, t_loc old, int x, int y)
+void	swap_player(t_param *param, t_vect old, int x, int y)
 {
 	param->burp = 0;
-	if (param->map.map[x][y] != '1')
+	if (param->map.content[x][y] != '1')
 	{
-		if (param->map.map[x][y] == 'E' && param->coll == 0)
+		if (param->map.content[x][y] == 'E' && param->coll == 0)
 			end_screen(param, 1);
 		else
 		{
-			if (param->map.map[x][y] == 'C')
+			if (param->map.content[x][y] == 'C')
 			{
 				param->coll--;
 				param->burp = 1;
 				if (!param->coll)
-					param->map.map[param->exit.x][param->exit.y] = 'E';
+					param->map.content[param->exit.x][param->exit.y] = 'E';
 			}
-			param->map.map[x][y] = 'P';
-			param->map.map[old.x][old.y] = '0';
+			param->map.content[x][y] = 'P';
+			param->map.content[old.x][old.y] = '0';
 			param->player.x = x;
 			param->player.y = y;
 			param->move++;

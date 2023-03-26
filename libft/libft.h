@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:08:41 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/22 20:04:04 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:30:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ int		ft_max(int a, int b);
 void	*ft_memalloc(size_t size);
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
 int		ft_get_ptrsize(intptr_t n, intptr_t *pow, int base);
+void	ft_free(void **ar, int size);
+int		ft_arlen(char **ar);
+void	*ft_realloc(void *source, size_t old_size, size_t new_size);
+int		ft_abs(int n);
+int		ft_strdigit(char *str);
 
 // GET NEXT LINE
 
