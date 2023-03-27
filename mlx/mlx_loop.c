@@ -11,7 +11,7 @@
 
 #include	"mlx_int.h"
 
-extern int	(*(mlx_int_param_event[]))();
+extern int	(*(mlx_int_data_event[]))();
 
 static int	win_count(t_xvar *xvar)
 {
@@ -51,13 +51,13 @@ int			mlx_loop(t_xvar *xvar)
 				win = win->next;
 
 			if (win && ev.type == ClientMessage && ev.xclient.message_type == xvar->wm_protocols && ev.xclient.data.l[0] == xvar->wm_delete_window && win->hooks[DestroyNotify].hook)
-				win->hooks[DestroyNotify].hook(win->hooks[DestroyNotify].param);
+				win->hooks[DestroyNotify].hook(win->hooks[DestroyNotify].data);
 			if (win && ev.type < MLX_MAX_EVENT && win->hooks[ev.type].hook)
-				mlx_int_param_event[ev.type](xvar, &ev, win);
+				mlx_int_data_event[ev.type](xvar, &ev, win);
 		}
 		XSync(xvar->display, False);
 		if (xvar->loop_hook)
-			xvar->loop_hook(xvar->loop_param);
+			xvar->loop_hook(xvar->loop_data);
 	}
 	return (0);
 }

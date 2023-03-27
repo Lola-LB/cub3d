@@ -14,8 +14,8 @@
 
 
 
-int	mlx_loop_hook(t_xvar *xvar,int (*funct)(),void *param)
+int	mlx_loop_hook(t_xvar *xvar,int (*funct)(),void *data)
 {
   xvar->loop_hook = funct;
-  xvar->loop_param = param;
+  xvar->loop_data = data;
 }

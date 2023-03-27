@@ -6,71 +6,71 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/24 17:59:28 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:14:43 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	swap_player(t_param *param, t_vect old, int x, int y)
+void	swap_player(t_data *data, t_int_vect old, int x, int y)
 {
-	param->burp = 0;
-	if (param->map.content[x][y] != '1')
+	data->burp = 0;
+	if (data->map.content[x][y] != '1')
 	{
-		if (param->map.content[x][y] == 'E' && param->coll == 0)
-			end_screen(param, 1);
+		if (data->map.content[x][y] == 'E' && data->coll == 0)
+			end_screen(data, 1);
 		else
 		{
-			if (param->map.content[x][y] == 'C')
+			if (data->map.content[x][y] == 'C')
 			{
-				param->coll--;
-				param->burp = 1;
-				if (!param->coll)
-					param->map.content[param->exit.x][param->exit.y] = 'E';
+				data->coll--;
+				data->burp = 1;
+				if (!data->coll)
+					data->map.content[data->exit.x][data->exit.y] = 'E';
 			}
-			param->map.content[x][y] = 'P';
-			param->map.content[old.x][old.y] = '0';
-			param->player.x = x;
-			param->player.y = y;
-			param->move++;
+			data->map.content[x][y] = 'P';
+			data->map.content[old.x][old.y] = '0';
+			data->player.x = x;
+			data->player.y = y;
+			data->move++;
 		}
 	}
 }
 
-void	move_player(int keysym, t_param *param)
+void	move_player(int keysym, t_data *data)
 {
-	if (keysym == W && param->player.x)
-		swap_player(param, param->player, param->player.x - 1, param->player.y);
-	else if (keysym == A && param->player.y)
+	if (keysym == W && data->player.x)
+		swap_player(data, data->player, data->player.x - 1, data->player.y);
+	else if (keysym == A && data->player.y)
 	{
-		if (param->left)
-			swap_player(param, param->player,
-				param->player.x, param->player.y - 1);
+		if (data->left)
+			swap_player(data, data->player,
+				data->player.x, data->player.y - 1);
 		else
-			param->left = 1;
+			data->left = 1;
 	}
-	else if (keysym == S && param->player.x != param->map.len)
-		swap_player(param, param->player, param->player.x + 1, param->player.y);
-	else if (keysym == D && param->player.y != param->map.width)
+	else if (keysym == S && data->player.x != data->map.len)
+		swap_player(data, data->player, data->player.x + 1, data->player.y);
+	else if (keysym == D && data->player.y != data->map.width)
 	{
-		if (param->left)
-			param->left = 0;
+		if (data->left)
+			data->left = 0;
 		else
-			swap_player(param, param->player,
-				param->player.x, param->player.y + 1);
+			swap_player(data, data->player,
+				data->player.x, data->player.y + 1);
 	}
 }
 
-int	handle_key(int keysym, t_param *param)
+int	handle_key(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
-		end_game(param);
-	else if (!param->end_game && (keysym == W || keysym == A || keysym == S
+		end_game(data);
+	else if (!data->end_game && (keysym == W || keysym == A || keysym == S
 			|| keysym == D))
 	{
-		move_player(keysym, param);
-		if (!param->end_game)
-			images_to_map(param);
+		move_player(keysym, data);
+		if (!data->end_game)
+			images_to_map(data);
 	}
 	return (0);
 }

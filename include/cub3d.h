@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/24 18:31:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:48:48 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define SO 1
 # define WE 2
 # define EA 3
+
+# define WINDOW_WIDTH 1400
+# define WINDOW_HEIGHT 800
 
 # define NUM_OFFSET 16
 # define NB_PIXEL 70
@@ -55,18 +58,24 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 	int		width;
 	int		height;
 }			t_img;
 
-typedef struct s_vect
+typedef struct s_int_vect
 {
 	int		x;
 	int		y;
-}			t_vect;
+}			t_int_vect;
+
+typedef struct s_double_vect
+{
+	int		x;
+	int		y;
+}			t_double_vect;
 
 typedef struct s_map
 {
@@ -75,70 +84,102 @@ typedef struct s_map
 	int		len;
 }			t_map;
 
-typedef struct s_RGB {
-    int		R;
-    int		G;
-    int		B;
-}	t_RGB;
-typedef struct s_param
+typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	t_map	map;
-	char	**store_data;
-	char	*identifiers[6];
-	t_RGB	floor_color;
-	t_RGB	ceiling_color;
-	t_vect	player;
-	t_vect	camera;
-	t_img	*texture;
-	int		end_game;
-}			t_param;
+	void		*mlx;
+	void		*win;
+	t_map		map;
+	char		**store_data;
+	char		*identifiers[6];
+	int			floor_color;
+	int			ceiling_color;
+	t_int_vect	player;
+	t_int_vect	camera;
+	t_img		*texture;
+	t_img		bg;
+	int			end_game;
+}				t_data;
+
+typedef struct s_raycaster {
+    t_double_vect	pos;
+    t_double_vect	map;
+	t_double_vect	dir;
+	t_double_vect	plane;
+	t_double_vect	deltaDist;
+	t_double_vect	rayDir;
+	t_double_vect	step;
+	t_double_vect	sideDist;
+	double			perpWallDist;
+	double			cameraX;
+	int				hit;
+	int				side;
+	int				lineHeight;
+	int				drawStart;
+	int				drawEnd;
+}	t_raycaster;
 
 /* ************************************************************************** */
 /*                                   main.c                                   */
 /* ************************************************************************** */
 
-void	launch_game(t_param *param);
+void	launch_game(t_data *data);
 
 /* ************************************************************************** */
 /*                                 read_data.c                                */
 /* ************************************************************************** */
 
-void	parse_line(char *line, t_param *param);
-void	parse_color(t_param *param, char *line, t_RGB color);
-void	read_data(int fd, t_param *param);
+void	parse_line(char *line, t_data *data);
+int		parse_color(t_data *data, char *line);
+void	read_data(int fd, t_data *data);
 
 /* ************************************************************************** */
 /*                                  read_map.c                                */
 /* ************************************************************************** */
 
-void	read_lines(int fd, t_param *param);
-void	rectangular_map(t_param *param);
-void	read_map(int fd, t_param *param);
+void	read_lines(int fd, t_data *data);
+void	rectangular_map(t_data *data);
+void	read_map(int fd, t_data *data);
 
 /* ************************************************************************** */
 /*                               file_parsing.c                               */
 /* ************************************************************************** */
 
 void	check_extension(char *file);
-void	parse_file(char *file, t_param *param);
+void	parse_file(char *file, t_data *data);
 
 /* ************************************************************************** */
 /*                               validate_map.c                               */
 /* ************************************************************************** */
 
-void	init_player(t_param *param, int i, int j, int *start);
-void	check_walls(t_param *param, int i, int j);
-void	validate_map(t_param *param);
+void	init_player(t_data *data, int i, int j, int *start);
+void	check_walls(t_data *data, int i, int j);
+void	validate_map(t_data *data);
+
+/* ************************************************************************** */
+/*                               	display.c                                 */
+/* ************************************************************************** */
+
+void	img_pixel_put(t_img *img, int x, int y, int color);
+void	images_to_map(t_data *data);
 
 /* ************************************************************************** */
 /*                   	            utils.c                                   */
 /* ************************************************************************** */
 
-void	init_param(t_param *param);
-void	init_images(t_param *param);
-void	ft_error(t_param *param, char *error);
-int		end_game(t_param *param);
+void	init_data(t_data *data);
+void	init_images(t_data *data);
+void	ft_error(t_data *data, char *error);
+int		end_game(t_data *data);
+
+/* ************************************************************************** */
+/*                   	        vect_operations.c                             */
+/* ************************************************************************** */
+
+t_double_vect	scalar_mult(t_double_vect v, double lambda);
+t_double_vect	comp_mult(t_double_vect u, t_double_vect v);
+double			scalar_product(t_double_vect u, t_double_vect v);
+t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
+t_double_vect	set_vect(double x, double y);
+t_double_vect	step(t_double_vect v);
 
 #endif

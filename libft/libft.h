@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:08:41 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/24 16:30:30 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:43:13 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int		ft_arlen(char **ar);
 void	*ft_realloc(void *source, size_t old_size, size_t new_size);
 int		ft_abs(int n);
 int		ft_strdigit(char *str);
+double	ft_doubleAbs(double d);
 
 // GET NEXT LINE
 

@@ -63,7 +63,7 @@ typedef struct	s_event_list
 {
 	int		mask;
 	int		(*hook)();
-	void	*param;
+	void	*data;
 }				t_event_list;
 
 
@@ -75,9 +75,9 @@ typedef struct	s_win_list
 	int					(*mouse_hook)();
 	int					(*key_hook)();
 	int					(*expose_hook)();
-	void				*mouse_param;
-	void				*key_param;
-	void				*expose_param;
+	void				*mouse_data;
+	void				*key_data;
+	void				*expose_data;
 	t_event_list		hooks[MLX_MAX_EVENT];
 }				t_win_list;
 
@@ -108,7 +108,7 @@ typedef struct	s_xvar
 	int			private_cmap;
 	t_win_list	*win_list;
 	int			(*loop_hook)();
-	void		*loop_param;
+	void		*loop_data;
 	int			use_xshm;
 	int			pshm_format;
 	int			do_flush;

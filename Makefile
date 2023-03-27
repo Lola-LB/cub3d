@@ -4,8 +4,9 @@ SRCS		= main.c				\
 			  read_map.c			\
 			  validate_map.c		\
 			  utils.c				\
+			  display.c				\
+			  vect_operations.c		\
 			#   map_check.c			\
-			#   display.c				\
 			#   events.c				\
 			#   map_char.c			\
 			#   map_path.c			\
@@ -28,6 +29,9 @@ SUBDIRS		= $(MLX_DIR)			\
 INCLUDE		= $(LIBFT_DIR)/libft.h	\
 			  $(MLX_DIR)/mlx.h		\
 
+DEP			= $(OBJS:.o=.d)			\
+			  $(OBJS_BONUS:.o=.d)
+
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 INC_FLAGS	= -I include/ -I $(MLX_DIR)/ -I $(LIBFT_DIR)/
@@ -36,7 +40,7 @@ CC			= cc
 
 AR			= ar rcs
 
-C_FLAGS		= -g3 -Wall -Wextra -Werror
+C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
 MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
 #MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
@@ -90,5 +94,7 @@ fclean_libft:		clean_libft
 	@echo "\033[92mFclean done !\033[0m"
 
 re:		fclean all
+
+-include : $(DEP)
 
 .PHONY:		all bonus clean fclean re

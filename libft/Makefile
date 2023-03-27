@@ -68,6 +68,7 @@ SRCS		= ft_memset.c					\
 		  	  ft_lstiter.c					\
 		  	  ft_lstmap.c					\
 		  	  ft_strdigit.c					\
+			  ft_doubleAbs.c 				\
 
 OBJS		= $(SRCS:.c=.o)
 
