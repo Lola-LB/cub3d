@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 12:43:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:21:35 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int	parse_color(t_data *data, char *line)
 void	read_data(int fd, t_data *data)
 {
 	char	*line;
-	int		data;
+	int		id;
 
 	data->store_data = (char **) ft_calloc(6, sizeof(char *));
 	if (!data->store_data)
 		ft_error(data, MALLOC_ERROR);
-	data = 0;
+	id = 0;
 	line = get_next_line(fd);
-	while (data != 6 && line)
+	while (id != 6 && line)
 	{
 		while (line && *line == '\n')
 			line = get_next_line(fd);
@@ -68,10 +68,10 @@ void	read_data(int fd, t_data *data)
 		{
 			parse_line(line, data);
 			line = get_next_line(fd);
-			++data;
+			++id;
 		}
 	}
-	if (data != 6)
+	if (id != 6)
 		ft_error(data, MISSING_DATA);
 	data->floor_color = parse_color(data, data->store_data[4]);
 	data->ceiling_color = parse_color(data, data->store_data[5]);

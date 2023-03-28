@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 13:14:43 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:47:13 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 void	swap_player(t_data *data, t_int_vect old, int x, int y)
 {
 	data->burp = 0;
-	if (data->map.content[x][y] != '1')
+	if (data->map->content[x][y] != '1')
 	{
-		if (data->map.content[x][y] == 'E' && data->coll == 0)
+		if (data->map->content[x][y] == 'E' && data->coll == 0)
 			end_screen(data, 1);
 		else
 		{
-			if (data->map.content[x][y] == 'C')
+			if (data->map->content[x][y] == 'C')
 			{
 				data->coll--;
 				data->burp = 1;
 				if (!data->coll)
-					data->map.content[data->exit.x][data->exit.y] = 'E';
+					data->map->content[data->exit.x][data->exit.y] = 'E';
 			}
-			data->map.content[x][y] = 'P';
-			data->map.content[old.x][old.y] = '0';
+			data->map->content[x][y] = 'P';
+			data->map->content[old.x][old.y] = '0';
 			data->player.x = x;
 			data->player.y = y;
 			data->move++;
@@ -49,9 +49,9 @@ void	move_player(int keysym, t_data *data)
 		else
 			data->left = 1;
 	}
-	else if (keysym == S && data->player.x != data->map.len)
+	else if (keysym == S && data->player.x != data->map->len)
 		swap_player(data, data->player, data->player.x + 1, data->player.y);
-	else if (keysym == D && data->player.y != data->map.width)
+	else if (keysym == D && data->player.y != data->map->width)
 	{
 		if (data->left)
 			data->left = 0;

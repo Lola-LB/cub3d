@@ -7,12 +7,12 @@
 #include "mlx_int.h"
 
 
-void display_log(GLuint object, void (*data_func)(), void (*getlog_func)())
+void display_log(GLuint object, void (*param_func)(), void (*getlog_func)())
 {
   GLint log_length;
   char *log;
 
-  data_func(object, GL_INFO_LOG_LENGTH, &log_length);
+  param_func(object, GL_INFO_LOG_LENGTH, &log_length);
   log = malloc(log_length);
   getlog_func(object, log_length, NULL, log);
   fprintf(stderr, "%s", log);

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 13:48:48 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:53:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,49 +56,49 @@
 
 typedef struct s_img
 {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}			t_img;
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+}					t_img;
 
 typedef struct s_int_vect
 {
-	int		x;
-	int		y;
-}			t_int_vect;
+	int				x;
+	int				y;
+}					t_int_vect;
 
 typedef struct s_double_vect
 {
-	int		x;
-	int		y;
-}			t_double_vect;
+	int				x;
+	int				y;
+}					t_double_vect;
 
 typedef struct s_map
 {
-	char	**content;
-	int		width;
-	int		len;
-}			t_map;
+	char			**content;
+	int				width;
+	int				len;
+}					t_map;
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	t_map		map;
-	char		**store_data;
-	char		*identifiers[6];
-	int			floor_color;
-	int			ceiling_color;
-	t_int_vect	player;
-	t_int_vect	camera;
-	t_img		*texture;
-	t_img		bg;
-	int			end_game;
-}				t_data;
+	void			*mlx;
+	void			*win;
+	t_map			*map;
+	char			**store_data;
+	char			*identifiers[6];
+	int				floor_color;
+	int				ceiling_color;
+	t_double_vect	player;
+	t_double_vect	direction;
+	t_img			*texture;
+	t_img			*screen;
+	int				end_game;
+}					t_data;
 
 typedef struct s_raycaster {
     t_double_vect	pos;
@@ -160,12 +160,15 @@ void	validate_map(t_data *data);
 /* ************************************************************************** */
 
 void	img_pixel_put(t_img *img, int x, int y, int color);
-void	images_to_map(t_data *data);
+void	verLine(t_data *data, int screenX, t_raycaster rc);
+void	display_background(t_data *data);
+void	raycaster(t_data *data);
 
 /* ************************************************************************** */
 /*                   	            utils.c                                   */
 /* ************************************************************************** */
 
+void	print_map(t_data *data);
 void	init_data(t_data *data);
 void	init_images(t_data *data);
 void	ft_error(t_data *data, char *error);

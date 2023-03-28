@@ -6,17 +6,36 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 12:43:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:09:46 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	print_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	printf("width: %i, length: %i\n", data->map->width, data->map->len);
+	while (data->map->content[i])
+	{
+		printf("%s\n", data->map->content[i]);
+		++i;
+	}
+}
+
 void	init_data(t_data *data)
 {
 	data->mlx = NULL;
 	data->win = NULL;
-	data->map.content = NULL;
+	data->map = malloc(sizeof(t_map));
+	if (!data->map)
+		ft_error(data, MALLOC_ERROR);
+	data->map->content = NULL;
+	data->screen = (t_img *) ft_calloc(sizeof(t_img), 1);
+	if (!data->screen)
+		ft_error(data, MALLOC_ERROR);
 	data->identifiers[0] = "NO ";
 	data->identifiers[1] = "SO ";
 	data->identifiers[2] = "WE ";
@@ -26,7 +45,7 @@ void	init_data(t_data *data)
 	data->floor_color = -1;
 	data->ceiling_color = -1;
 	data->end_game = 0;
-	data->bg.img = NULL;
+	data->screen->img = NULL;
 	data->texture = (t_img *) ft_calloc(6, sizeof(t_img));
 	if (!data->texture)
 		ft_error(data, MALLOC_ERROR);
@@ -50,17 +69,21 @@ void	init_images(t_data *data)
 	}
 }
 
-void	free_map(t_map map)
+void	free_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while (i < map.len)
+	if (map->content)
 	{
-		free(map.content[i]);
-		++i;
+		while (i < map->len)
+		{
+			free(map->content[i]);
+			++i;
+		}
+		free(map->content);
 	}
-	free(map.content);
+	free(map);
 }
 
 void	ft_error(t_data *data, char *error)

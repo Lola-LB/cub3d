@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 12:43:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:47:13 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	check_walls(t_data *data, int i, int j)
 	int	y;
 
 	x = -1 * (i > 0) + (i == 0);
-	while (x < 2 && i + x < data->map.len)
+	while (x < 2 && i + x < data->map->len)
 	{
 		y = -1 * (j > 0) + (j == 0);
-		while (y < 2 && j + y < data->map.width)
+		while (y < 2 && j + y < data->map->width)
 		{
-			if (data->map.content[i + x][j + y] != '1'
-				&& data->map.content[i + x][j + y] != ' ')
+			if (data->map->content[i + x][j + y] != '1'
+				&& data->map->content[i + x][j + y] != ' ')
 				ft_error(data, NO_WALLS);
 			++y;
 		}
@@ -39,11 +39,11 @@ void	init_player(t_data *data, int i, int j, int *start)
 	if (*start)
 		ft_error(data, MULT_START);
 	++*start;
-	data->player.x = i;
-	data->player.y = j;
-	c = data->map.content[i][j];
-	data->camera.x = (c == 'S') - (c == 'N');
-	data->camera.y = (c == 'E') - (c == 'W');
+	data->player.y = i + 0.5;
+	data->player.x = j + 0.5;
+	c = data->map->content[i][j];
+	data->direction.x = (c == 'E') - (c == 'W');
+	data->direction.y = (c == 'S') - (c == 'N');
 }
 
 void	validate_map(t_data *data)
@@ -54,20 +54,20 @@ void	validate_map(t_data *data)
 
 	i = 0;
 	start = 0;
-	while (i < data->map.len)
+	while (i < data->map->len)
 	{
 		j = 0;
-		while (j < data->map.width)
+		while (j < data->map->width)
 		{
-			if ((i == 0 || i == data->map.len || j == 0
-				|| j == data->map.width) && !(data->map.content[i][j] == '1'
-				|| data->map.content[i][j] == ' '))
+			if ((i == 0 || i == data->map->len || j == 0
+				|| j == data->map->width) && !(data->map->content[i][j] == '1'
+				|| data->map->content[i][j] == ' '))
 				ft_error(data, NO_WALLS);
-			if (ft_strchr("NSEW", data->map.content[i][j]))
+			if (ft_strchr("NSEW", data->map->content[i][j]))
 				init_player(data, i, j, &start);
-			else if (data->map.content[i][j] == ' ')
+			else if (data->map->content[i][j] == ' ')
 				check_walls(data, i, j) ;
-			else if (!ft_strchr("01", data->map.content[i][j]))
+			else if (!ft_strchr("01", data->map->content[i][j]))
 				ft_error(data, FORBIDDEN_CHAR);
 			++j;
 		}
