@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:13:54 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:47:49 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,30 @@ void	verLine(t_data *data, int screenX, t_raycaster rc)
 		color = color / 2;
 	while (j < rc.drawEnd)
 	{
-		img_pixel_put(data->screen, j, screenX, color);
+		img_pixel_put(data->screen, screenX, j, color);
 		++j;
 	}
+}
+
+void	print_vect(t_double_vect v)
+{
+	printf("x=%lf y=%lf\n", v.x, v.y);
+}
+
+void	print_rc(t_raycaster rc)
+{
+	printf("\nmap:\nx=%i y=%i\n", rc.map.x, rc.map.y);
+	printf("rayDir:\n");
+	print_vect(rc.rayDir);
+	printf("sideDist:\n");
+	print_vect(rc.sideDist);
+	printf("deltaDist:\n");
+	print_vect(rc.deltaDist);
+	printf("step:\n");
+	print_vect(rc.step);
+	printf("perpWallDist:\n %f\n", rc.perpWallDist);
+	printf("lineheight:\n %i\n", rc.lineHeight);
+	printf("drawStart=%i drawEnd=%i\n\n", rc.drawStart, rc.drawEnd);
 }
 
 void	raycaster(t_data *data)
@@ -98,8 +119,12 @@ void	raycaster(t_data *data)
 	//x and y start position
 	rc.pos = set_vect(data->player.x, data->player.y);
 	rc.dir = set_vect(data->direction.x, data->direction.y);
-	rc.plane = set_vect(-0.66 * data->direction.x, -0.66 * data->direction.y);
+	rc.plane = set_vect(-0.66 * data->direction.y, -0.66 * data->direction.x);
 
+	// printf("data->player: x=%lf y=%lf\n", data->player.x, data->player.y);
+	// printf("rc.pos: x=%lf y=%lf\n", rc.pos.x, rc.pos.y);
+	// printf("rc.dir: x=%lf y=%lf\n", rc.dir.x, rc.dir.y);
+	// printf("rc.plane: x=%lf y=%lf\n", rc.plane.x, rc.plane.y);
 	time = 0; //time of current frame
 	oldTime = 0; //time of previous frame
 
@@ -143,9 +168,6 @@ void	raycaster(t_data *data)
 				rc.map.y += rc.step.y;
 				rc.side = 1;
 			}
-			// if (rc.map.x >= data->map->width || rc.map.y >= data->map->len)
-			// 	exit(0);
-			// printf("x %i %i\ny %i %i\n", rc.map.x, data->map->width, rc.map.y, data->map->len);
 			//Check if ray has hit a wall
 			if (data->map->content[rc.map.y][rc.map.x] == '1')
 				rc.hit = 1;
@@ -162,6 +184,9 @@ void	raycaster(t_data *data)
 		//Calculate lowest and highest pixel to fill in current stripe
 		rc.drawStart = ft_max(0, -rc.lineHeight / 2 + WINDOW_HEIGHT / 2);
 		rc.drawEnd = ft_min(WINDOW_HEIGHT - 1, rc.lineHeight / 2 + WINDOW_HEIGHT / 2);
+
+		if (screenX % 100 == 0)
+			print_rc(rc);
 
 		//draw the pixels of the stripe as a vertical line
 		verLine(data, screenX, rc);

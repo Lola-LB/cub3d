@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 17:53:30 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:41:00 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_int_vect
 
 typedef struct s_double_vect
 {
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 }					t_double_vect;
 
 typedef struct s_map
@@ -102,13 +102,13 @@ typedef struct s_data
 
 typedef struct s_raycaster {
     t_double_vect	pos;
-    t_double_vect	map;
+    t_int_vect		map;
 	t_double_vect	dir;
 	t_double_vect	plane;
-	t_double_vect	deltaDist;
-	t_double_vect	rayDir;
 	t_double_vect	step;
+	t_double_vect	rayDir;
 	t_double_vect	sideDist;
+	t_double_vect	deltaDist;
 	double			perpWallDist;
 	double			cameraX;
 	int				hit;

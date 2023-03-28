@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:13:32 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 17:49:17 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:29:16 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ void	read_map(int fd, t_data *data)
 	read_lines(fd, data);
 	rectangular_map(data);
 	validate_map(data);
-	printf("valid map\n");
+	// printf("valid map\n");
 }
