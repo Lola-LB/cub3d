@@ -3,14 +3,11 @@ SRCS		= main.c				\
 			  read_data.c			\
 			  read_map.c			\
 			  validate_map.c		\
-			  utils.c				\
-			  display.c				\
+			  raycaster.c			\
 			  vect_operations.c		\
-			#   map_check.c			\
-			#   events.c				\
-			#   map_char.c			\
-			#   map_path.c			\
-			#   score.c				\
+			  draw.c				\
+			  utils.c				\
+			  debug.c				\
 
 SRCS_BONUS	= main_bonus.c			\
 			  map_check_bonus.c		\

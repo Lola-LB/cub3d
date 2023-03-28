@@ -6,24 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:09:46 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:50:40 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	printf("width: %i, length: %i\n", data->map->width, data->map->len);
-	while (data->map->content[i])
-	{
-		printf("%s\n", data->map->content[i]);
-		++i;
-	}
-}
 
 void	init_data(t_data *data)
 {

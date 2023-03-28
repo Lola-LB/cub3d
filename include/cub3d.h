@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:41:00 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:00:38 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@
 # define MLX_ERROR "Minilibx error"
 # define FILE_ERROR "File error"
 # define SYST_ERROR "System error"
-
-# define NO 0
-# define SO 1
-# define WE 2
-# define EA 3
 
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 800
@@ -156,19 +151,23 @@ void	check_walls(t_data *data, int i, int j);
 void	validate_map(t_data *data);
 
 /* ************************************************************************** */
-/*                               	display.c                                 */
+/*                                raycaster.c                                 */
+/* ************************************************************************** */
+
+void	raycaster(t_data *data);
+
+/* ************************************************************************** */
+/*                               	 draw.c                                   */
 /* ************************************************************************** */
 
 void	img_pixel_put(t_img *img, int x, int y, int color);
-void	verLine(t_data *data, int screenX, t_raycaster rc);
-void	display_background(t_data *data);
-void	raycaster(t_data *data);
+void	img_verLine_put(t_data *data, int screenX, t_raycaster rc);
+void	draw_background(t_data *data);
 
 /* ************************************************************************** */
 /*                   	            utils.c                                   */
 /* ************************************************************************** */
 
-void	print_map(t_data *data);
 void	init_data(t_data *data);
 void	init_images(t_data *data);
 void	ft_error(t_data *data, char *error);
@@ -183,6 +182,13 @@ t_double_vect	comp_mult(t_double_vect u, t_double_vect v);
 double			scalar_product(t_double_vect u, t_double_vect v);
 t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
 t_double_vect	set_vect(double x, double y);
-t_double_vect	step(t_double_vect v);
+t_double_vect	set_step(t_double_vect v);
 
+/* ************************************************************************** */
+/*                   	        	  debug.c                                 */
+/* ************************************************************************** */
+
+void	print_map(t_data *data);
+void	print_vect(t_double_vect v);
+void	print_rc(t_raycaster rc);
 #endif

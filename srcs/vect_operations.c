@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:27:37 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 13:48:59 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:00:38 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_double_vect	set_vect(double x, double y)
 	return (v);
 }
 
-t_double_vect	step(t_double_vect v)
+t_double_vect	set_step(t_double_vect v)
 {
 	t_double_vect	i;
 
