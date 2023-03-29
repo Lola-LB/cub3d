@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:58:11 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:45:06 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@
 
 # define MAP_LEN 50
 
-# define W 119 //65362 //126
-# define A 97  //65361 //123
-# define S 115 //65364 //125
-# define D 100 //65363 //124
+# define W 126 //119 //65362 //126
+# define A 123 //97  //65361 //123
+# define S 125 //115 //65364 //125
+# define D 124 //100 //65363 //124
+
+# define LEFT 12
+# define RIGHT 13
 
 # define NO 0
 # define SO 1 
@@ -85,25 +88,9 @@ typedef struct s_map
 	int				len;
 }					t_map;
 
-typedef struct s_data
-{
-	void			*mlx;
-	void			*win;
-	t_map			*map;
-	char			**store_data;
-	char			*identifiers[6];
-	int				floor_color;
-	int				ceiling_color;
-	t_double_vect	player;
-	t_double_vect	direction;
-	t_img			*texture;
-	t_img			*screen;
-	int				end_game;
-}					t_data;
-
 typedef struct s_raycaster {
     t_double_vect	pos;
-    t_int_vect		map;
+    t_int_vect		square;
 	t_double_vect	dir;
 	t_double_vect	plane;
 	t_double_vect	step;
@@ -118,6 +105,25 @@ typedef struct s_raycaster {
 	int				drawStart;
 	int				drawEnd;
 }	t_raycaster;
+
+typedef struct s_data
+{
+	void			*mlx;
+	void			*win;
+	t_map			*map;
+	char			**store_data;
+	char			*identifiers[6];
+	int				floor_color;
+	int				ceiling_color;
+	t_double_vect	player;
+	t_double_vect	direction;
+	t_img			*texture;
+	t_img			*screen;
+	int				end_game;
+	t_raycaster		*rc;
+	double			moveSpeed;
+	double			rotateSpeed;
+}					t_data;
 
 /* ************************************************************************** */
 /*                                   main.c                                   */
@@ -160,8 +166,8 @@ void	validate_map(t_data *data);
 /*                                raycaster.c                                 */
 /* ************************************************************************** */
 
-void	followRay(t_data *data, t_raycaster *rc);
-void	draw_verLine(t_data *data, t_raycaster *rc, int screenX);
+void	followRay(t_data *data);
+void	draw_verLine(t_data *data, int screenX);
 void	raycaster(t_data *data);
 
 /* ************************************************************************** */
@@ -169,9 +175,9 @@ void	raycaster(t_data *data);
 /* ************************************************************************** */
 
 void		img_pixel_put(t_img *img, int x, int y, int color);
-t_img		get_texture(t_data *data, t_raycaster rc);
-t_int_vect	get_texCoord(t_data *data, t_raycaster rc, t_img texture);
-void		img_verLine_put(t_data *data, int screenX, t_raycaster rc);
+t_img		get_texture(t_data *data);
+t_int_vect	get_texCoord(t_data *data, t_img texture);
+void		img_verLine_put(t_data *data, int screenX);
 void		draw_background(t_data *data);
 
 /* ************************************************************************** */
@@ -206,5 +212,6 @@ int	handle_key(int keysym, t_data *data);
 
 void	print_map(t_data *data);
 void	print_vect(t_double_vect v);
-void	print_rc(t_raycaster rc);
+void	print_rc(t_data *data);
+
 #endif

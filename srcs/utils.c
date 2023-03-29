@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 16:31:47 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:42:27 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	init_data(t_data *data)
 	data->screen = (t_img *) ft_calloc(sizeof(t_img), 1);
 	if (!data->screen)
 		ft_error(data, MALLOC_ERROR);
+	data->rc = malloc(sizeof(t_raycaster));
+	if (!data->rc)
+		ft_error(data, MALLOC_ERROR);
 	data->identifiers[0] = "NO ";
 	data->identifiers[1] = "SO ";
 	data->identifiers[2] = "WE ";
@@ -31,6 +34,8 @@ void	init_data(t_data *data)
 	data->identifiers[5] = "C ";
 	data->floor_color = -1;
 	data->ceiling_color = -1;
+	data->moveSpeed = 0.2;
+	data->rotateSpeed = 0.2;
 	data->end_game = 0;
 	data->screen->img = NULL;
 	data->texture = (t_img *) ft_calloc(6, sizeof(t_img));

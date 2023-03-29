@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:49:43 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:47:39 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:42:48 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	print_vect(t_double_vect v)
 	printf("x=%lf y=%lf\n", v.x, v.y);
 }
 
-void	print_rc(t_raycaster rc)
+void	print_rc(t_data *data)
 {
-	printf("\nmap:\nx=%i y=%i\n", rc.map.x, rc.map.y);
+	printf("\nmap:\nx=%i y=%i\n", data->rc->square.x, data->rc->square.y);
 	printf("rayDir:\n");
-	print_vect(rc.rayDir);
+	print_vect(data->rc->rayDir);
 	printf("sideDist:\n");
-	print_vect(rc.sideDist);
+	print_vect(data->rc->sideDist);
 	printf("deltaDist:\n");
-	print_vect(rc.deltaDist);
+	print_vect(data->rc->deltaDist);
 	printf("step:\n");
-	print_vect(rc.step);
-	printf("side: %i\n", rc.side);
-	printf("perpWallDist:\n %f\n", rc.perpWallDist);
-	printf("lineheight:\n %i\n", rc.lineHeight);
-	printf("drawStart=%i drawEnd=%i\n\n", rc.drawStart, rc.drawEnd);
+	print_vect(data->rc->step);
+	printf("side: %i\n", data->rc->side);
+	printf("perpWallDist:\n %f\n", data->rc->perpWallDist);
+	printf("lineheight:\n %i\n", data->rc->lineHeight);
+	printf("drawStart=%i drawEnd=%i\n\n", data->rc->drawStart, data->rc->drawEnd);
 }
