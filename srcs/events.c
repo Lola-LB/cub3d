@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 19:12:30 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:38:05 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_move(t_data *data, t_double_vect newPos)
 	y = (int) floor(newPos.y);
 	if (x < 1 || y < 1 || x >= data->map->width || y >= data->map->len)
 		return (0);
-	if (data->map->content[x][y] == '1')
+	if (data->map->content[y][x] == '1')
 		return (0);
 	return (1);
 }
@@ -61,13 +61,17 @@ void	move_player(int keysym, t_data *data)
 
 int	handle_key(int keysym, t_data *data)
 {
-	printf("%i\n", keysym);
+	// printf("%i\n", keysym);
 	if (keysym == XK_Escape)
 		end_game(data);
 	else if (!data->end_game && (keysym == W || keysym == A || keysym == S
 			|| keysym == D))
 		move_player(keysym, data);
+	else if (keysym == DEBUG) //Space on mac
+	{
+		print_rc(data);
+	}
 	// else if (keysym == LEFT || keysym == RIGHT)
-	// 	rotate_view(keysym, data);
+	// 	rotate_view(keysym, data); //TODO
 	return (0);
 }
