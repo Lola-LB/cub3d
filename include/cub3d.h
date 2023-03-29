@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:18:12 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:44:07 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ typedef struct s_raycaster {
 	t_double_vect	rayDir;
 	t_double_vect	sideDist;
 	t_double_vect	deltaDist;
-	t_double_vect	hitPoint;
 	double			perpWallDist;
 	double			cameraX;
 	int				hit;

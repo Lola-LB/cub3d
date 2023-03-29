@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:16:25 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:56:16 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@ void	followRay(t_data *data, t_raycaster *rc)
 {
 	if (rc->sideDist.x < rc->sideDist.y)
 	{
-		rc->hitPoint.x = (double) rc->map.x;
-		rc->hitPoint.y = ft_doubleAbs(data->player.y - sqrt(pow(rc->sideDist.x, 2)
-			- pow(data->player.x - rc->map.x, 2)));
 		rc->sideDist.x += rc->deltaDist.x;
 		rc->map.x += rc->step.x;
 		rc->side = 0;
 	}
 	else
 	{
-		rc->hitPoint.y = (double) rc->map.y;
-		rc->hitPoint.x = ft_doubleAbs(data->player.x - sqrt(pow(rc->sideDist.y, 2)
-			- pow(data->player.y - rc->map.y, 2)));
 		rc->sideDist.y += rc->deltaDist.y;
 		rc->map.y += rc->step.y;
 		rc->side = 1;
@@ -51,12 +45,16 @@ void	draw_verLine(t_data *data, t_raycaster *rc, int screenX)
 	rc->hit = 0;
 	while (rc->hit == 0)
 		followRay(data, rc);
-	rc->perpWallDist = (rc->sideDist.x - rc->deltaDist.x) * (rc->side == 0)
-		+ (rc->sideDist.y - rc->deltaDist.y) * (rc->side != 0);
+	if (rc->side)
+		rc->perpWallDist = (rc->sideDist.y - rc->deltaDist.y);
+	else
+		rc->perpWallDist = (rc->sideDist.x - rc->deltaDist.x);
 	rc->lineHeight = (int) (WINDOW_HEIGHT / rc->perpWallDist);
 	rc->drawStart = ft_max(0, -rc->lineHeight / 2 + WINDOW_HEIGHT / 2);
 	rc->drawEnd = ft_min(WINDOW_HEIGHT - 1, rc->lineHeight / 2
 		+ WINDOW_HEIGHT / 2);
+	if (rc->cameraX == 0)
+		print_rc(*rc);
 	img_verLine_put(data, screenX, *rc);
 }
 

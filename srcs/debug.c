@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:49:43 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:50:42 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:47:39 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	print_rc(t_raycaster rc)
 	print_vect(rc.deltaDist);
 	printf("step:\n");
 	print_vect(rc.step);
+	printf("side: %i\n", rc.side);
 	printf("perpWallDist:\n %f\n", rc.perpWallDist);
 	printf("lineheight:\n %i\n", rc.lineHeight);
 	printf("drawStart=%i drawEnd=%i\n\n", rc.drawStart, rc.drawEnd);
