@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:56:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:03:18 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	draw_verLine(t_data *data, t_raycaster *rc, int screenX)
 	rc->drawStart = ft_max(0, -rc->lineHeight / 2 + WINDOW_HEIGHT / 2);
 	rc->drawEnd = ft_min(WINDOW_HEIGHT - 1, rc->lineHeight / 2
 		+ WINDOW_HEIGHT / 2);
-	if (rc->cameraX == 0)
-		print_rc(*rc);
 	img_verLine_put(data, screenX, *rc);
 }
 

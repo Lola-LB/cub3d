@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:44:33 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:09:40 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_img	get_texture(t_data *data, t_raycaster rc)
 	return (texture);
 }
 
-t_int_vect	getTexCoord(t_data *data, t_raycaster rc, t_img texture)
+t_int_vect	get_texCoord(t_data *data, t_raycaster rc, t_img texture)
 {
 	t_int_vect	tex;
 	double		wallX;
@@ -63,16 +63,19 @@ void	img_verLine_put(t_data *data, int screenX, t_raycaster rc)
 	t_int_vect	tex;
 	int			color;
 	double		step;
+	int			offset;
 	int			y;
 
 	texture = get_texture(data, rc);
-	tex = getTexCoord(data, rc, texture);
+	tex = get_texCoord(data, rc, texture);
 	y = rc.drawStart;
 	step = (double) texture.height / (double) (rc.drawEnd - rc.drawStart);
 	while (y < rc.drawEnd)
 	{
 		tex.y = (int) (y - rc.drawStart) * step;
-		color = texture.addr[texture.line_length * tex.y + tex.x * (texture.bpp / 8)];
+		offset = texture.line_length * tex.y + tex.x * (texture.bpp / 8);
+		color = (texture.addr[offset] << 16) + (texture.addr[offset + 1] << 8)
+			+ (texture.addr[offset + 2]);
 		img_pixel_put(data->screen, screenX, y, color);
 		++y;
 	}

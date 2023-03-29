@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 17:44:07 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:58:11 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	raycaster(t_data *data);
 
 void		img_pixel_put(t_img *img, int x, int y, int color);
 t_img		get_texture(t_data *data, t_raycaster rc);
-t_int_vect	getTexCoord(t_data *data, t_raycaster rc, t_img texture);
+t_int_vect	get_texCoord(t_data *data, t_raycaster rc, t_img texture);
 void		img_verLine_put(t_data *data, int screenX, t_raycaster rc);
 void		draw_background(t_data *data);
 
