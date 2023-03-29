@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 17:21:35 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:34:46 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,25 @@ void	read_data(int fd, t_data *data)
 		ft_error(data, MISSING_DATA);
 	data->floor_color = parse_color(data, data->store_data[4]);
 	data->ceiling_color = parse_color(data, data->store_data[5]);
+}
+
+void	init_images(t_data *data)
+{
+	int		i;
+
+	data->texture = (t_img *) ft_calloc(sizeof(t_img), 4);;
+	if (!data->texture)
+		ft_error(data, MALLOC_ERROR);
+	i = 0;
+	while (i < 4)
+	{
+		data->texture[i].img = mlx_xpm_file_to_image(data->mlx, data->store_data[i],
+				&data->texture[i].width, &data->texture[i].height);
+		if (!data->texture[i].img)
+			ft_error(data, FILE_ERROR);
+		data->texture[i].addr = mlx_get_data_addr(data->texture->img,
+			&data->texture[i].bpp, &data->texture[i].line_length,
+			&data->texture[i].endian);
+		++i;
+	}
 }

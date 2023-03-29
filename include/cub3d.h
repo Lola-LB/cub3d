@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 19:00:38 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:18:12 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@
 # define S 115 //65364 //125
 # define D 100 //65363 //124
 
+# define NO 0
+# define SO 1 
+# define WE 2
+# define EA 3
+
 # define XK_Escape 53
 // # include <X11/keysym.h>
 
@@ -48,6 +53,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 typedef struct s_img
 {
@@ -104,6 +110,7 @@ typedef struct s_raycaster {
 	t_double_vect	rayDir;
 	t_double_vect	sideDist;
 	t_double_vect	deltaDist;
+	t_double_vect	hitPoint;
 	double			perpWallDist;
 	double			cameraX;
 	int				hit;
@@ -154,15 +161,19 @@ void	validate_map(t_data *data);
 /*                                raycaster.c                                 */
 /* ************************************************************************** */
 
+void	followRay(t_data *data, t_raycaster *rc);
+void	draw_verLine(t_data *data, t_raycaster *rc, int screenX);
 void	raycaster(t_data *data);
 
 /* ************************************************************************** */
-/*                               	 draw.c                                   */
+/*                             raycaster_draw.c                               */
 /* ************************************************************************** */
 
-void	img_pixel_put(t_img *img, int x, int y, int color);
-void	img_verLine_put(t_data *data, int screenX, t_raycaster rc);
-void	draw_background(t_data *data);
+void		img_pixel_put(t_img *img, int x, int y, int color);
+t_img		get_texture(t_data *data, t_raycaster rc);
+t_int_vect	getTexCoord(t_data *data, t_raycaster rc, t_img texture);
+void		img_verLine_put(t_data *data, int screenX, t_raycaster rc);
+void		draw_background(t_data *data);
 
 /* ************************************************************************** */
 /*                   	            utils.c                                   */
@@ -183,6 +194,12 @@ double			scalar_product(t_double_vect u, t_double_vect v);
 t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
 t_double_vect	set_vect(double x, double y);
 t_double_vect	set_step(t_double_vect v);
+
+/* ************************************************************************** */
+/*                   	        	 events.c                                 */
+/* ************************************************************************** */
+
+int	handle_key(int keysym, t_data *data);
 
 /* ************************************************************************** */
 /*                   	        	  debug.c                                 */

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 17:49:46 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:56:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	launch_game(t_data	*data)
 	mlx_pixel_put(data->mlx, data->win, 300, 150, 255);
 	init_images(data);
 	raycaster(data);
-	// images_to_map(data);
-	// mlx_hook(win, 2, (1L << 0), &handle_key, data);
+	mlx_hook(win, 2, (1L << 0), &handle_key, data);
 	mlx_hook(win, 17, (1L << 1), &end_game, data);
 	mlx_loop(mlx);
 }

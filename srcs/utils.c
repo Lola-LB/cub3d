@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:50:40 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:31:47 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,6 @@ void	init_data(t_data *data)
 	data->texture = (t_img *) ft_calloc(6, sizeof(t_img));
 	if (!data->texture)
 		ft_error(data, MALLOC_ERROR);
-}
-
-void	init_images(t_data *data)
-{
-	int		i;
-
-	data->texture = (t_img *) ft_calloc(sizeof(t_img), 4);;
-	if (!data->texture)
-		ft_error(data, MALLOC_ERROR);
-	i = 0;
-	while (i < 4)
-	{
-		data->texture[i].img = mlx_xpm_file_to_image(data->mlx, data->store_data[i],
-				&data->texture[i].width, &data->texture[i].height);
-		if (!data->texture[i].img)
-			ft_error(data, FILE_ERROR);
-		++i;
-	}
 }
 
 void	free_map(t_map *map)
