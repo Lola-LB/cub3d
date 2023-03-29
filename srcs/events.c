@@ -6,39 +6,57 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 18:46:59 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:12:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	check_move(t_data *data, t_double_vect newPos)
+{
+	int	x;
+	int	y;
+
+	x = (int) floor(newPos.x);
+	y = (int) floor(newPos.y);
+	if (x < 1 || y < 1 || x >= data->map->width || y >= data->map->len)
+		return (0);
+	if (data->map->content[x][y] == '1')
+		return (0);
+	return (1);
+}
+
 void	move_player(int keysym, t_data *data)
 {
-	if (keysym == W && data->player.y - data->moveSpeed > 1
-		&& (floor(data->player.y - data->moveSpeed) == data->rc->square.y
-		|| data->map->content[data->rc->square.x][data->rc->square.y - 1] != '1'))
+	t_double_vect	newPos;
+
+	newPos = data->player;
+	
+	if (keysym == W)
 	{
-		data->player.y -= data->moveSpeed;
+		newPos.x += data->moveSpeed * data->rc->dir.x;
+		newPos.y += data->moveSpeed * data->rc->dir.y;
 	}
-	else if (keysym == S && data->player.y + data->moveSpeed < data->map->len - 1
-		&& (floor(data->player.y + data->moveSpeed) == data->rc->square.y
-		|| data->map->content[data->rc->square.x][data->rc->square.y + 1] != '1'))
+	else if (keysym == S)
 	{
-		data->player.y += data->moveSpeed;
+		newPos.x -= data->moveSpeed * data->rc->dir.x;
+		newPos.y -= data->moveSpeed * data->rc->dir.y;
 	}
-	else if (keysym == A && data->player.x - data->moveSpeed > 1
-		&& (floor(data->player.x - data->moveSpeed) == data->rc->square.x
-		|| data->map->content[data->rc->square.x - 1][data->rc->square.y] != '1'))
+	else if (keysym == A)
 	{
-		data->player.x -= data->moveSpeed;
+		newPos.x -= data->moveSpeed * data->rc->plane.x;
+		newPos.y -= data->moveSpeed * data->rc->plane.y;
 	}
-	else if (keysym == D && data->player.x + data->moveSpeed < data->map->width - 1
-		&& (floor(data->player.x + data->moveSpeed) == data->rc->square.x
-		|| data->map->content[data->rc->square.x + 1][data->rc->square.y] != '1'))
+	else if (keysym == D)
 	{
-		data->player.x += data->moveSpeed;
+		newPos.x += data->moveSpeed * data->rc->plane.x;
+		newPos.y += data->moveSpeed * data->rc->plane.y;
 	}
-	raycaster(data);
+	if (check_move(data, newPos))
+	{
+		data->player = newPos;
+		raycaster(data);
+	}
 }
 
 int	handle_key(int keysym, t_data *data)

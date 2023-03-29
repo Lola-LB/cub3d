@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 18:45:06 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:10:01 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,9 @@ t_double_vect	set_step(t_double_vect v);
 /*                   	        	 events.c                                 */
 /* ************************************************************************** */
 
-int	handle_key(int keysym, t_data *data);
+int		check_move(t_data *data, t_double_vect newPos);
+void	move_player(int keysym, t_data *data);
+int		handle_key(int keysym, t_data *data);
 
 /* ************************************************************************** */
 /*                   	        	  debug.c                                 */
