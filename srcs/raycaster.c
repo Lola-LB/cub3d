@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 18:16:08 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:32:06 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	followRay(t_data *data)
 
 void	draw_verLine(t_data *data, int screenX)
 {
-	data->rc->cameraX = 2 * screenX / (double) WINDOW_WIDTH - 1;
-	data->rc->rayDir = vect_sum(data->rc->dir, scalar_mult(data->rc->plane, data->rc->cameraX));
 	data->rc->square.x = (int) data->rc->player.x;
 	data->rc->square.y = (int) data->rc->player.y;
+	data->rc->cameraX = 2 * screenX / (double) WINDOW_WIDTH - 1;
+	data->rc->rayDir = vect_sum(data->rc->dir, scalar_mult(data->rc->plane, data->rc->cameraX));
 	data->rc->deltaDist = set_vect(ft_doubleAbs(1 / data->rc->rayDir.x),
 		ft_doubleAbs(1 / data->rc->rayDir.y));
 	data->rc->step = set_step(data->rc->rayDir);

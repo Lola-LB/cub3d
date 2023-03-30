@@ -1,7 +1,7 @@
-NO ./files/wall_north.xpm
-SO ./files/wall_north.xpm
-WE ./files/wall_north.xpm
-EA ./files/wall_north.xpm
+NO ./files/ground.xpm
+SO ./files/ground.xpm
+WE ./files/ground.xpm
+EA ./files/ground.xpm
 
 F 185,164,137
 C 143,197,220

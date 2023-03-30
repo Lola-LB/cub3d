@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:45:07 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 18:14:28 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:21:07 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_images(t_data *data)
 		data->texture[i].addr = mlx_get_data_addr(data->texture->img,
 			&data->texture[i].bpp, &data->texture[i].line_length,
 			&data->texture[i].endian);
+		print_img(&data->texture[i]);
 		++i;
 	}
 	data->screen->img = mlx_new_image(data->mlx, WINDOW_WIDTH,

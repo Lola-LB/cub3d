@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:49:43 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 18:06:15 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:18:03 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ void	print_img(t_img *img)
 	int	i;
 
 	i = 0;
-	printf("addr: %p, bpp: %i, endian: %i, line_length: %i, height: %i, width: %i",
+	(void) i;
+	printf("addr: %p, bpp: %i, endian: %i, line_length: %i, height: %i, width: %i\n",
 		img->addr, img->bpp, img->endian, img->line_length, img->height, img->width);
-	while (i < img->height * img->line_length)
-	{
-		printf("%c", img->addr[i]);
-		++i;
-	}
+	// while (i < img->height * img->line_length)
+	// {
+	// 	printf("%c", img->addr[i]);
+	// 	++i;
+	// }
 	printf("\n");
 }
