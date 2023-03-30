@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 16:56:30 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:00:32 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int ac, char **av)
 	parse_file(*(av + 1), &data);
 	if (!data.map->content || !*data.map->content)
 		ft_error(NULL, "Parsing of the file failed");
-	// printf("len: %d width: %d\n", data.map->len, data.map->width);
 	launch_game(&data);
 	return (0);
 }
@@ -41,8 +40,8 @@ void	launch_game(t_data	*data)
 	data->win = win;
 	if (!win)
 		ft_error(data, MLX_ERROR);
-	mlx_pixel_put(data->mlx, data->win, 300, 150, 255);
 	init_images(data);
+	create_background(data);
 	raycaster(data);
 	mlx_hook(win, 2, (1L << 0), &handle_key, data);
 	mlx_hook(win, 17, (1L << 1), &end_game, data);

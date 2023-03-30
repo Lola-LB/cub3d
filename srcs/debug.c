@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:49:43 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 23:36:42 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:06:15 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_vect(t_double_vect v)
 void	print_rc(t_data *data)
 {
 	printf("\nplayer:\n");
-	print_vect(data->player);
+	print_vect(data->rc->player);
 	printf("map:\nx=%i y=%i\n", data->rc->square.x, data->rc->square.y);
 	printf("rayDir:\n");
 	print_vect(data->rc->rayDir);
@@ -47,4 +47,19 @@ void	print_rc(t_data *data)
 	printf("perpWallDist:\n %f\n", data->rc->perpWallDist);
 	printf("lineheight:\n %i\n", data->rc->lineHeight);
 	printf("drawStart=%i drawEnd=%i\n\n", data->rc->drawStart, data->rc->drawEnd);
+}
+
+void	print_img(t_img *img)
+{
+	int	i;
+
+	i = 0;
+	printf("addr: %p, bpp: %i, endian: %i, line_length: %i, height: %i, width: %i",
+		img->addr, img->bpp, img->endian, img->line_length, img->height, img->width);
+	while (i < img->height * img->line_length)
+	{
+		printf("%c", img->addr[i]);
+		++i;
+	}
+	printf("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 23:38:05 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:57:05 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	move_player(int keysym, t_data *data)
 {
 	t_double_vect	newPos;
 
-	newPos = data->player;
+	newPos = data->rc->player;
 	
 	if (keysym == W)
 	{
@@ -54,7 +54,7 @@ void	move_player(int keysym, t_data *data)
 	}
 	if (check_move(data, newPos))
 	{
-		data->player = newPos;
+		data->rc->player = newPos;
 		raycaster(data);
 	}
 }

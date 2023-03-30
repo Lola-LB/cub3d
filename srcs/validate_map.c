@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:30:54 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:54:29 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	init_player(t_data *data, int i, int j, int *start)
 	if (*start)
 		ft_error(data, MULT_START);
 	++*start;
-	data->player.y = i + 0.5;
-	data->player.x = j + 0.5;
+	data->rc->player.y = i + 0.5;
+	data->rc->player.x = j + 0.5;
 	c = data->map->content[i][j];
-	data->direction.x = (c == 'E') - (c == 'W');
-	data->direction.y = (c == 'S') - (c == 'N');
+	data->rc->dir.x = (c == 'E') - (c == 'W');
+	data->rc->dir.y = (c == 'S') - (c == 'N');
+	data->rc->plane = set_vect(-0.66 * data->rc->dir.y, -0.66 * data->rc->dir.x);
 }
 
 void	validate_map(t_data *data)

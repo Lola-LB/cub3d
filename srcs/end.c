@@ -6,42 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 19:13:47 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:45:44 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_data(t_data *data)
-{
-	data->mlx = NULL;
-	data->win = NULL;
-	data->map = malloc(sizeof(t_map));
-	if (!data->map)
-		ft_error(data, MALLOC_ERROR);
-	data->map->content = NULL;
-	data->screen = (t_img *) ft_calloc(sizeof(t_img), 1);
-	if (!data->screen)
-		ft_error(data, MALLOC_ERROR);
-	data->rc = malloc(sizeof(t_raycaster));
-	if (!data->rc)
-		ft_error(data, MALLOC_ERROR);
-	data->identifiers[0] = "NO ";
-	data->identifiers[1] = "SO ";
-	data->identifiers[2] = "WE ";
-	data->identifiers[3] = "EA ";
-	data->identifiers[4] = "F ";
-	data->identifiers[5] = "C ";
-	data->floor_color = -1;
-	data->ceiling_color = -1;
-	data->moveSpeed = 0.1;
-	data->rotateSpeed = 0.1;
-	data->end_game = 0;
-	data->screen->img = NULL;
-	data->texture = (t_img *) ft_calloc(6, sizeof(t_img));
-	if (!data->texture)
-		ft_error(data, MALLOC_ERROR);
-}
 
 void	free_map(t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 18:50:03 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:17:27 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ t_img	get_texture(t_data *data)
 
 	if (data->rc->side)
 	{
-		id = (EA * (data->player.x > data->rc->square.x)
-		+ WE * (data->player.x < data->rc->square.x));
+		id = (EA * (data->rc->player.x > data->rc->square.x)
+		+ WE * (data->rc->player.x < data->rc->square.x));
 	}
 	else
 	{
-		id = (SO * (data->player.y > data->rc->square.y)
-		+ NO * (data->player.y < data->rc->square.y));
+		id = (SO * (data->rc->player.y > data->rc->square.y)
+		+ NO * (data->rc->player.y < data->rc->square.y));
 	}
 	texture = data->texture[id];
 	return (texture);
@@ -45,9 +45,9 @@ t_int_vect	get_texCoord(t_data *data, t_img texture)
 	double		wallX;
 
 	if (data->rc->side)
-		wallX = data->player.x + data->rc->perpWallDist * data->rc->rayDir.x;
+		wallX = data->rc->player.x + data->rc->perpWallDist * data->rc->rayDir.x;
 	else
-		wallX = data->player.y + data->rc->perpWallDist * data->rc->rayDir.y;
+		wallX = data->rc->player.y + data->rc->perpWallDist * data->rc->rayDir.y;
 	wallX -= floor(wallX);
 	tex.x = (int) round(wallX * texture.width);
 	if (data->rc->side == 0 && data->rc->rayDir.x > 0)
@@ -68,43 +68,16 @@ void	img_verLine_put(t_data *data, int screenX)
 
 	texture = get_texture(data);
 	tex = get_texCoord(data, texture);
-	y = data->rc->drawStart;
+	y = ft_max(0, data->rc->drawStart);
 	step = (double) texture.height / (double) (data->rc->drawEnd - data->rc->drawStart);
-	while (y < data->rc->drawEnd)
+	while (y < ft_min(data->rc->drawEnd, WINDOW_HEIGHT - 1))
 	{
 		tex.y = (int) (y - data->rc->drawStart) * step;
 		offset = texture.line_length * tex.y + tex.x * (texture.bpp / 8);
 		color = (texture.addr[offset] << 16) + (texture.addr[offset + 1] << 8)
 			+ (texture.addr[offset + 2]);
-		img_pixel_put(data->screen, screenX, y, color);
+		img_pixel_put(data->background, screenX, y, color);
 		++y;
 	}
 }
 
-void	draw_background(t_data *data)
-{
-	int		i;
-	int		j;
-
-	if (!data->screen->img)
-	{
-		data->screen->img = mlx_new_image(data->mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT);
-		data->screen->addr = mlx_get_data_addr(data->screen->img,
-			&data->screen->bpp, &data->screen->line_length,
-			&data->screen->endian);
-	}
-	i = 0;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-		{
-			img_pixel_put(data->screen, j, i,
-				data->ceiling_color * (i < WINDOW_HEIGHT / 2)
-				+ data->floor_color * (i >= WINDOW_HEIGHT / 2));
-			++j;
-		}
-		++i;
-	}
-}

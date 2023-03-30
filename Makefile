@@ -1,4 +1,5 @@
 SRCS		= main.c				\
+			  init.c				\
 			  file_parsing.c		\
 			  read_data.c			\
 			  read_map.c			\
@@ -6,9 +7,9 @@ SRCS		= main.c				\
 			  raycaster.c			\
 			  raycaster_draw.c		\
 			  vect_operations.c		\
-			  utils.c				\
-			  debug.c				\
 			  events.c				\
+			  end.c					\
+			  debug.c				\
 
 SRCS_BONUS	= main_bonus.c			\
 			  map_check_bonus.c		\

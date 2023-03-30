@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/29 23:32:27 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:03:35 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_map
 }					t_map;
 
 typedef struct s_raycaster {
-    t_double_vect	pos;
+    t_double_vect	player;
     t_int_vect		square;
 	t_double_vect	dir;
 	t_double_vect	plane;
@@ -117,10 +117,9 @@ typedef struct s_data
 	char			*identifiers[6];
 	int				floor_color;
 	int				ceiling_color;
-	t_double_vect	player;
-	t_double_vect	direction;
 	t_img			*texture;
 	t_img			*screen;
+	t_img			*background;
 	int				end_game;
 	t_raycaster		*rc;
 	double			moveSpeed;
@@ -131,65 +130,63 @@ typedef struct s_data
 /*                                   main.c                                   */
 /* ************************************************************************** */
 
-void	launch_game(t_data *data);
-
-/* ************************************************************************** */
-/*                                 read_data.c                                */
-/* ************************************************************************** */
-
-void	parse_line(char *line, t_data *data);
-int		parse_color(t_data *data, char *line);
-void	read_data(int fd, t_data *data);
-
-/* ************************************************************************** */
-/*                                  read_map.c                                */
-/* ************************************************************************** */
-
-void	read_lines(int fd, t_data *data);
-void	rectangular_map(t_data *data);
-void	read_map(int fd, t_data *data);
+void			launch_game(t_data *data);
 
 /* ************************************************************************** */
 /*                               file_parsing.c                               */
 /* ************************************************************************** */
 
-void	check_extension(char *file);
-void	parse_file(char *file, t_data *data);
+void			check_extension(char *file);
+void			parse_file(char *file, t_data *data);
+
+/* ************************************************************************** */
+/*                                 read_data.c                                */
+/* ************************************************************************** */
+
+void			parse_line(char *line, t_data *data);
+int				parse_color(t_data *data, char *line);
+void			read_data(int fd, t_data *data);
+
+/* ************************************************************************** */
+/*                                  read_map.c                                */
+/* ************************************************************************** */
+
+void			read_lines(int fd, t_data *data);
+void			rectangular_map(t_data *data);
+void			read_map(int fd, t_data *data);
 
 /* ************************************************************************** */
 /*                               validate_map.c                               */
 /* ************************************************************************** */
 
-void	init_player(t_data *data, int i, int j, int *start);
-void	check_walls(t_data *data, int i, int j);
-void	validate_map(t_data *data);
+void			init_player(t_data *data, int i, int j, int *start);
+void			check_walls(t_data *data, int i, int j);
+void			validate_map(t_data *data);
+
+/* ************************************************************************** */
+/*                   	            init.c                                    */
+/* ************************************************************************** */
+
+void			init_data(t_data *data);
+void			init_images(t_data *data);
+void			create_background(t_data *data);
 
 /* ************************************************************************** */
 /*                                raycaster.c                                 */
 /* ************************************************************************** */
 
-void	followRay(t_data *data);
-void	draw_verLine(t_data *data, int screenX);
-void	raycaster(t_data *data);
+void			followRay(t_data *data);
+void			draw_verLine(t_data *data, int screenX);
+void			raycaster(t_data *data);
 
 /* ************************************************************************** */
 /*                             raycaster_draw.c                               */
 /* ************************************************************************** */
 
-void		img_pixel_put(t_img *img, int x, int y, int color);
-t_img		get_texture(t_data *data);
-t_int_vect	get_texCoord(t_data *data, t_img texture);
-void		img_verLine_put(t_data *data, int screenX);
-void		draw_background(t_data *data);
-
-/* ************************************************************************** */
-/*                   	            utils.c                                   */
-/* ************************************************************************** */
-
-void	init_data(t_data *data);
-void	init_images(t_data *data);
-void	ft_error(t_data *data, char *error);
-int		end_game(t_data *data);
+void			img_pixel_put(t_img *img, int x, int y, int color);
+t_img			get_texture(t_data *data);
+t_int_vect		get_texCoord(t_data *data, t_img texture);
+void			img_verLine_put(t_data *data, int screenX);
 
 /* ************************************************************************** */
 /*                   	        vect_operations.c                             */
@@ -206,16 +203,25 @@ t_double_vect	set_step(t_double_vect v);
 /*                   	        	 events.c                                 */
 /* ************************************************************************** */
 
-int		check_move(t_data *data, t_double_vect newPos);
-void	move_player(int keysym, t_data *data);
-int		handle_key(int keysym, t_data *data);
+int				check_move(t_data *data, t_double_vect newPos);
+void			move_player(int keysym, t_data *data);
+int				handle_key(int keysym, t_data *data);
+
+/* ************************************************************************** */
+/*                   	             end.c                                    */
+/* ************************************************************************** */
+
+void			free_map(t_map *map);
+void			ft_error(t_data *data, char *error);
+int				end_game(t_data *data);
 
 /* ************************************************************************** */
 /*                   	        	  debug.c                                 */
 /* ************************************************************************** */
 
-void	print_map(t_data *data);
-void	print_vect(t_double_vect v);
-void	print_rc(t_data *data);
+void			print_map(t_data *data);
+void			print_vect(t_double_vect v);
+void			print_rc(t_data *data);
+void			print_img(t_img *img);
 
 #endif
