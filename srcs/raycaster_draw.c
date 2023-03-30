@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 19:25:20 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:32:53 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,9 @@ void	img_verLine_put(t_data *data, int screenX)
 	t_int_vect	tex;
 	int			color;
 	double		step;
-	int			offset;
 	int			y;
 
-	// printf("%i\n", 0xFF00);
-	// printf("%i\n", mlx_get_color_value(data->mlx, 0xFF00));
 	texture = get_texture(data);
-	// exit(0);
 	tex = get_texCoord(data, texture);
 	y = ft_max(0, data->rc->drawStart);
 	step = (double) texture.height
@@ -77,11 +73,8 @@ void	img_verLine_put(t_data *data, int screenX)
 	while (y < ft_min(data->rc->drawEnd, WINDOW_HEIGHT - 1))
 	{
 		tex.y = (int) (y - data->rc->drawStart) * step;
-		offset = texture.line_length * tex.y + tex.x * (texture.bpp / 8);
-		color = (*(texture.addr + offset) << 0)
-			+ (*(texture.addr + offset + 1) << 8)
-			+ (*(texture.addr + offset + 2) << 16);
-			// + (*(texture.addr + offset + 3) << 24));
+		color = *(int*) (texture.addr + texture.line_length * tex.y
+			+ tex.x * (texture.bpp / 8));
 		img_pixel_put(data->background, screenX, y, color);
 		++y;
 	}
