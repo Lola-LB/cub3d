@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 19:32:53 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:16:44 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	img_verLine_put(t_data *data, int screenX)
 		tex.y = (int) (y - data->rc->drawStart) * step;
 		color = *(int*) (texture.addr + texture.line_length * tex.y
 			+ tex.x * (texture.bpp / 8));
-		img_pixel_put(data->background, screenX, y, color);
+		img_pixel_put(data->screen, screenX, y, color);
 		++y;
 	}
 }

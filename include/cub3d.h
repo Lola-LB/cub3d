@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 18:03:35 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:09:23 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_raycaster {
 	t_double_vect	rayDir;
 	t_double_vect	sideDist;
 	t_double_vect	deltaDist;
+	t_double_vect	rot;
 	double			perpWallDist;
 	double			cameraX;
 	int				hit;
@@ -118,8 +119,8 @@ typedef struct s_data
 	int				floor_color;
 	int				ceiling_color;
 	t_img			*texture;
+	t_img			*column;
 	t_img			*screen;
-	t_img			*background;
 	int				end_game;
 	t_raycaster		*rc;
 	double			moveSpeed;
@@ -169,7 +170,6 @@ void			validate_map(t_data *data);
 
 void			init_data(t_data *data);
 void			init_images(t_data *data);
-void			create_background(t_data *data);
 
 /* ************************************************************************** */
 /*                                raycaster.c                                 */
@@ -177,7 +177,7 @@ void			create_background(t_data *data);
 
 void			followRay(t_data *data);
 void			draw_verLine(t_data *data, int screenX);
-void			raycaster(t_data *data);
+void			raycaster(t_data *data, t_img *img, int start, int end);
 
 /* ************************************************************************** */
 /*                             raycaster_draw.c                               */
@@ -216,7 +216,14 @@ void			ft_error(t_data *data, char *error);
 int				end_game(t_data *data);
 
 /* ************************************************************************** */
-/*                   	        	  debug.c                                 */
+/*                   	             utils.c                                  */
+/* ************************************************************************** */
+
+t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left);
+void			create_background(t_data *data, t_img *img);
+
+/* ************************************************************************** */
+/*                   	             debug.c                                  */
 /* ************************************************************************** */
 
 void			print_map(t_data *data);

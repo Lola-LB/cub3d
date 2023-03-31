@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:45:07 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 19:21:07 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:00:49 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	init_data(t_data *data)
 	if (!data->map)
 		ft_error(data, MALLOC_ERROR);
 	data->map->content = NULL;
+	data->column = (t_img *) ft_calloc(sizeof(t_img), 1);
+	if (!data->column)
+		ft_error(data, MALLOC_ERROR);
 	data->screen = (t_img *) ft_calloc(sizeof(t_img), 1);
 	if (!data->screen)
-		ft_error(data, MALLOC_ERROR);
-	data->background = (t_img *) ft_calloc(sizeof(t_img), 1);
-	if (!data->background)
 		ft_error(data, MALLOC_ERROR);
 	data->rc = malloc(sizeof(t_raycaster));
 	if (!data->rc)
@@ -38,9 +38,11 @@ void	init_data(t_data *data)
 	data->floor_color = -1;
 	data->ceiling_color = -1;
 	data->moveSpeed = 0.05;
-	data->rotateSpeed = 0.05;
+	data->rotateSpeed = WINDOW_WIDTH / 50;
+	data->rc->rot.x = cos(1.1519 * (data->rotateSpeed / WINDOW_WIDTH));
+	data->rc->rot.y = sin(1.1519 * (data->rotateSpeed / WINDOW_WIDTH));
 	data->end_game = 0;
-	data->background->img = NULL;
+	data->screen->img = NULL;
 	data->texture = (t_img *) ft_calloc(6, sizeof(t_img));
 	if (!data->texture)
 		ft_error(data, MALLOC_ERROR);
@@ -63,42 +65,21 @@ void	init_images(t_data *data)
 		data->texture[i].addr = mlx_get_data_addr(data->texture->img,
 			&data->texture[i].bpp, &data->texture[i].line_length,
 			&data->texture[i].endian);
-		print_img(&data->texture[i]);
 		++i;
 	}
 	data->screen->img = mlx_new_image(data->mlx, WINDOW_WIDTH,
 		WINDOW_HEIGHT);
-	data->screen->height = WINDOW_HEIGHT;
-	data->screen->width = WINDOW_WIDTH;
 	data->screen->addr = mlx_get_data_addr(data->screen->img,
 		&data->screen->bpp, &data->screen->line_length,
 		&data->screen->endian);
+	data->screen->height = WINDOW_HEIGHT;
+	data->screen->width = WINDOW_WIDTH;
+	data->column->img = mlx_new_image(data->mlx, data->rotateSpeed,
+		WINDOW_HEIGHT);
+	data->column->height = WINDOW_HEIGHT;
+	data->column->width = data->rotateSpeed;
+	data->column->addr = mlx_get_data_addr(data->column->img,
+		&data->column->bpp, &data->column->line_length,
+		&data->column->endian);
 }
 
-void	create_background(t_data *data)
-{
-	int		i;
-	int		j;
-
-	if (!data->background->img)
-	{
-		data->background->img = mlx_new_image(data->mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT);
-		data->background->addr = mlx_get_data_addr(data->background->img,
-			&data->background->bpp, &data->background->line_length,
-			&data->background->endian);
-	}
-	i = 0;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-		{
-			img_pixel_put(data->background, j, i,
-				data->ceiling_color * (i < WINDOW_HEIGHT / 2)
-				+ data->floor_color * (i >= WINDOW_HEIGHT / 2));
-			++j;
-		}
-		++i;
-	}
-}

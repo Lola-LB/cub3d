@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 18:32:06 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:51:17 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	draw_verLine(t_data *data, int screenX)
 	img_verLine_put(data, screenX);
 }
 
-void	raycaster(t_data *data)
+void	raycaster(t_data *data, t_img *img, int start, int end)
 {
 	int			screenX;
 
-	create_background(data);
-	screenX = 0;
-	while (screenX < WINDOW_WIDTH)
+	create_background(data, img);
+	screenX = start;
+	while (screenX < end)
 	{
 		draw_verLine(data, screenX);
 		++screenX;
     }
-	mlx_put_image_to_window(data->mlx, data->win, data->background->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
 }

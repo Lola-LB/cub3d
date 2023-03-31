@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 17:57:05 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:53:29 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,37 @@ void	move_player(int keysym, t_data *data)
 	if (check_move(data, newPos))
 	{
 		data->rc->player = newPos;
-		raycaster(data);
+		raycaster(data, data->screen, 0, WINDOW_WIDTH);
 	}
+}
+
+void	shift_screen(t_data *data, int left)
+{
+	if (left)
+	{
+		ft_memmove((int*)data->screen->addr + (int)data->rotateSpeed,
+			(int*)data->screen->addr, data->screen->line_length
+			* data->screen->height - (int)data->rotateSpeed);
+	}
+	else
+	{
+		ft_memmove((int*)data->screen->addr, (int*)data->screen->addr
+			+ (int)data->rotateSpeed, data->screen->line_length
+			* data->screen->height - (int)data->rotateSpeed);
+	}
+}
+
+void	rotate_view(int keysym, t_data *data)
+{
+	data->rc->dir = rotate_vect(data, data->rc->dir, (keysym == LEFT));
+	data->rc->plane = rotate_vect(data, data->rc->plane, (keysym == LEFT));
+	shift_screen(data, keysym == LEFT);
+	if (keysym == LEFT)
+		raycaster(data, data->screen, 0, data->rotateSpeed);
+	else if (keysym == RIGHT)
+		raycaster(data, data->screen, WINDOW_WIDTH - data->rotateSpeed,
+			WINDOW_WIDTH);
+	raycaster(data, data->screen, 0, WINDOW_WIDTH);
 }
 
 int	handle_key(int keysym, t_data *data)
@@ -71,7 +100,7 @@ int	handle_key(int keysym, t_data *data)
 	{
 		print_rc(data);
 	}
-	// else if (keysym == LEFT || keysym == RIGHT)
-	// 	rotate_view(keysym, data); //TODO
+	else if (keysym == LEFT || keysym == RIGHT)
+		rotate_view(keysym, data);
 	return (0);
 }

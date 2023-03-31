@@ -9,6 +9,7 @@ SRCS		= main.c				\
 			  vect_operations.c		\
 			  events.c				\
 			  end.c					\
+			  utils.c				\
 			  debug.c				\
 
 SRCS_BONUS	= main_bonus.c			\
