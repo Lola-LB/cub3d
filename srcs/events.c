@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 13:53:29 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:00:13 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,10 @@ int	handle_key(int keysym, t_data *data)
 	// printf("%i\n", keysym);
 	if (keysym == XK_Escape)
 		end_game(data);
-	else if (!data->end_game && (keysym == W || keysym == A || keysym == S
-			|| keysym == D))
+	else if (keysym == W || keysym == A || keysym == S || keysym == D)
 		move_player(keysym, data);
 	else if (keysym == DEBUG) //Space on mac
-	{
 		print_rc(data);
-	}
 	else if (keysym == LEFT || keysym == RIGHT)
 		rotate_view(keysym, data);
 	return (0);

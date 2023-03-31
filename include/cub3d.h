@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 13:09:23 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:14:50 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,7 @@ typedef struct s_data
 	int				floor_color;
 	int				ceiling_color;
 	t_img			*texture;
-	t_img			*column;
 	t_img			*screen;
-	int				end_game;
 	t_raycaster		*rc;
 	double			moveSpeed;
 	double			rotateSpeed;
@@ -205,6 +203,8 @@ t_double_vect	set_step(t_double_vect v);
 
 int				check_move(t_data *data, t_double_vect newPos);
 void			move_player(int keysym, t_data *data);
+void			shift_screen(t_data *data, int left);
+void			rotate_view(int keysym, t_data *data);
 int				handle_key(int keysym, t_data *data);
 
 /* ************************************************************************** */
@@ -230,5 +230,6 @@ void			print_map(t_data *data);
 void			print_vect(t_double_vect v);
 void			print_rc(t_data *data);
 void			print_img(t_img *img);
+void			print_adresses(t_data *data);
 
 #endif

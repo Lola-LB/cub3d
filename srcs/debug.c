@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:49:43 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 19:18:03 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:12:25 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ void	print_img(t_img *img)
 	// 	++i;
 	// }
 	printf("\n");
+}
+
+void	print_adresses(t_data *data)
+{
+	printf("mlx: %p\nwin: %p\nmap: %p\nstore_data: %p\nidentifiers: %p\ntexture: %p\nscreen: %p\nrc: %p\n",
+		data->mlx, data->win, data->map, data->store_data, data->identifiers, data->texture, data->screen, data->rc);
 }
