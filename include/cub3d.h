@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 14:57:14 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:12:34 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@
 
 # define MAP_LEN 50
 
-# define W 126 //119 //65362 //126
-# define A 123 //97  //65361 //123
-# define S 125 //115 //65364 //125
-# define D 124 //100 //65363 //124
+// Changer les n° des touches entre LINUX et MAC
+# define W 126 //119 //65362
+# define A 123 //97  //65361
+# define S 125 //115 //65364
+# define D 124 //100 //65363
 
 # define DEBUG 49
 
@@ -49,8 +50,8 @@
 # define WE 2
 # define EA 3
 
-# define XK_Escape 53
-// # include <X11/keysym.h>
+# define XK_Escape 53 // MAX
+// # include <X11/keysym.h> // LINUX
 
 # include "libft.h"
 # include "mlx.h"
@@ -194,11 +195,10 @@ void			img_ver_line_put(t_data *data, int screenX);
 /* ************************************************************************** */
 
 t_double_vect	scalar_mult(t_double_vect v, double lambda);
-t_double_vect	comp_mult(t_double_vect u, t_double_vect v);
-double			scalar_product(t_double_vect u, t_double_vect v);
 t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
 t_double_vect	set_vect(double x, double y);
 t_double_vect	set_step(t_double_vect v);
+double			scalar_product(t_double_vect u, t_double_vect v);
 
 /* ************************************************************************** */
 /*                   	        	 events.c                                 */
