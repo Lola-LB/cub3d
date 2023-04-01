@@ -6,13 +6,13 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 13:51:17 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:32:24 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	followRay(t_data *data)
+void	follow_ray(t_data *data)
 {
 	if (data->rc->sideDist.x < data->rc->sideDist.y)
 	{
@@ -30,41 +30,53 @@ void	followRay(t_data *data)
 		data->rc->hit = 1;
 }
 
-void	draw_verLine(t_data *data, int screenX)
+t_double_vect	side_dist(t_data *data)
+{
+	t_double_vect	d;
+
+	d.x = data->rc->step.x * (data->rc->square.x - data->rc->player.x
+			+ (data->rc->step.x >= 0)) * data->rc->deltaDist.x;
+	d.y = data->rc->step.y * (data->rc->square.y - data->rc->player.y
+			+ (data->rc->step.y >= 0)) * data->rc->deltaDist.y;
+	return (d);
+}
+
+void	draw_ver_line(t_data *data, int screen_x)
 {
 	data->rc->square.x = (int) data->rc->player.x;
 	data->rc->square.y = (int) data->rc->player.y;
-	data->rc->cameraX = 2 * screenX / (double) WINDOW_WIDTH - 1;
-	data->rc->rayDir = vect_sum(data->rc->dir, scalar_mult(data->rc->plane, data->rc->cameraX));
+	data->rc->camera_x = 2 * screen_x / (double) WINDOW_WIDTH - 1;
+	data->rc->rayDir = vect_sum(data->rc->dir, scalar_mult(data->rc->plane,
+				data->rc->camera_x));
 	data->rc->deltaDist = set_vect(ft_doubleAbs(1 / data->rc->rayDir.x),
-		ft_doubleAbs(1 / data->rc->rayDir.y));
+			ft_doubleAbs(1 / data->rc->rayDir.y));
 	data->rc->step = set_step(data->rc->rayDir);
-	data->rc->sideDist = set_vect(data->rc->step.x * (data->rc->square.x - data->rc->player.x
-		+ (data->rc->step.x >= 0)) * data->rc->deltaDist.x, data->rc->step.y
-		* (data->rc->square.y - data->rc->player.y + (data->rc->step.y >= 0)) * data->rc->deltaDist.y);
+	data->rc->sideDist = side_dist(data);
 	data->rc->hit = 0;
 	while (data->rc->hit == 0)
-		followRay(data);
+		follow_ray(data);
 	if (data->rc->side)
-		data->rc->perpWallDist = (data->rc->sideDist.y - data->rc->deltaDist.y);
+		data->rc->perp_wall_dist = (data->rc->sideDist.y
+				- data->rc->deltaDist.y);
 	else
-		data->rc->perpWallDist = (data->rc->sideDist.x - data->rc->deltaDist.x);
-	data->rc->lineHeight = (int) (WINDOW_HEIGHT / data->rc->perpWallDist);
-	data->rc->drawStart = -data->rc->lineHeight / 2 + WINDOW_HEIGHT / 2;
-	data->rc->drawEnd = data->rc->lineHeight / 2 + WINDOW_HEIGHT / 2;
-	img_verLine_put(data, screenX);
+		data->rc->perp_wall_dist = (data->rc->sideDist.x
+				- data->rc->deltaDist.x);
+	data->rc->line_height = (int)(WINDOW_HEIGHT / data->rc->perp_wall_dist);
+	data->rc->draw_start = -data->rc->line_height / 2 + WINDOW_HEIGHT / 2;
+	data->rc->draw_end = data->rc->line_height / 2 + WINDOW_HEIGHT / 2;
+	img_ver_line_put(data, screen_x);
 }
 
 void	raycaster(t_data *data, t_img *img, int start, int end)
 {
-	int			screenX;
+	int			screen_x;
 
 	create_background(data, img);
-	screenX = start;
-	while (screenX < end)
+	screen_x = start;
+	while (screen_x < end)
 	{
-		draw_verLine(data, screenX);
-		++screenX;
-    }
+		draw_ver_line(data, screen_x);
+		++screen_x;
+	}
 	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
 }

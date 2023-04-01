@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 12:39:52 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 13:08:43 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:38:00 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	create_background(t_data *data, t_img *img)
 {

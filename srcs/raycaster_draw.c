@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 12:16:44 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:23:28 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	img_pixel_put(t_img *img, int x, int y, int color)
 {
-	char    *pixel;
+	char	*pixel;
 
-    pixel = img->addr + (y * img->line_length + x * (img->bpp / 8));
+	pixel = img->addr + (y * img->line_length + x * (img->bpp / 8));
 	*(int *) pixel = color;
 }
 
@@ -28,36 +28,38 @@ t_img	get_texture(t_data *data)
 	if (data->rc->side)
 	{
 		id = (EA * (data->rc->step.x == -1)
-		+ WE * (data->rc->step.x == 1));
+				+ WE * (data->rc->step.x == 1));
 	}
 	else
 	{
 		id = (SO * (data->rc->step.y == -1)
-		+ NO * (data->rc->step.y == 1));
+				+ NO * (data->rc->step.y == 1));
 	}
 	texture = data->texture[id];
 	return (texture);
 }
 
-t_int_vect	get_texCoord(t_data *data, t_img texture)
+t_int_vect	get_tex_coord(t_data *data, t_img texture)
 {
 	t_int_vect	tex;
-	double		wallX;
+	double		wall_x;
 
 	if (data->rc->side)
-		wallX = data->rc->player.x + data->rc->perpWallDist * data->rc->rayDir.x;
+		wall_x = data->rc->player.x + data->rc->perp_wall_dist
+			* data->rc->rayDir.x;
 	else
-		wallX = data->rc->player.y + data->rc->perpWallDist * data->rc->rayDir.y;
-	wallX -= floor(wallX);
-	tex.x = (int) round(wallX * texture.width);
+		wall_x = data->rc->player.y + data->rc->perp_wall_dist
+			* data->rc->rayDir.y;
+	wall_x -= floor(wall_x);
+	tex.x = (int) round(wall_x * texture.width);
 	if (data->rc->side == 0 && data->rc->rayDir.x > 0)
 		tex.x = texture.width - tex.x - 1;
-    if (data->rc->side == 1 && data->rc->rayDir.y < 0)
+	else if (data->rc->side == 1 && data->rc->rayDir.y < 0)
 		tex.x = texture.width - tex.x - 1;
 	return (tex);
 }
 
-void	img_verLine_put(t_data *data, int screenX)
+void	img_ver_line_put(t_data *data, int screenX)
 {
 	t_img		texture;
 	t_int_vect	tex;
@@ -66,17 +68,16 @@ void	img_verLine_put(t_data *data, int screenX)
 	int			y;
 
 	texture = get_texture(data);
-	tex = get_texCoord(data, texture);
-	y = ft_max(0, data->rc->drawStart);
+	tex = get_tex_coord(data, texture);
+	y = ft_max(0, data->rc->draw_start);
 	step = (double) texture.height
-		/ (double) (data->rc->drawEnd - data->rc->drawStart);
-	while (y < ft_min(data->rc->drawEnd, WINDOW_HEIGHT - 1))
+		/ (double)(data->rc->draw_end - data->rc->draw_start);
+	while (y < ft_min(data->rc->draw_end, WINDOW_HEIGHT - 1))
 	{
-		tex.y = (int) (y - data->rc->drawStart) * step;
-		color = *(int*) (texture.addr + texture.line_length * tex.y
-			+ tex.x * (texture.bpp / 8));
+		tex.y = (int)(y - data->rc->draw_start) * step;
+		color = *(int *)(texture.addr + texture.line_length * tex.y
+				+ tex.x * (texture.bpp / 8));
 		img_pixel_put(data->screen, screenX, y, color);
 		++y;
 	}
 }
-

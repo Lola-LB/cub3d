@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 13:07:32 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:57:35 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,23 @@ void	init_player(t_data *data, int i, int j, int *start)
 	c = data->map->content[i][j];
 	data->rc->dir.x = (c == 'E') - (c == 'W');
 	data->rc->dir.y = (c == 'S') - (c == 'N');
-	data->rc->plane = set_vect(-0.66 * data->rc->dir.y, -0.66 * data->rc->dir.x);
+	data->rc->plane = set_vect(-0.66 * data->rc->dir.y,
+			-0.66 * data->rc->dir.x);
+}
+
+void	validate_position(t_data *data, int i, int j, int *start)
+{
+	if ((i == 0 || i == data->map->len || j == 0
+			|| j == data->map->width)
+		&& !(data->map->content[i][j] == '1'
+		|| data->map->content[i][j] == ' '))
+		ft_error(data, NO_WALLS);
+	if (ft_strchr("NSEW", data->map->content[i][j]))
+		init_player(data, i, j, start);
+	else if (data->map->content[i][j] == ' ')
+		check_walls(data, i, j);
+	else if (!ft_strchr("01", data->map->content[i][j]))
+		ft_error(data, FORBIDDEN_CHAR);
 }
 
 void	validate_map(t_data *data)
@@ -60,16 +76,7 @@ void	validate_map(t_data *data)
 		j = 0;
 		while (j < data->map->width)
 		{
-			if ((i == 0 || i == data->map->len || j == 0
-				|| j == data->map->width) && !(data->map->content[i][j] == '1'
-				|| data->map->content[i][j] == ' '))
-				ft_error(data, NO_WALLS);
-			if (ft_strchr("NSEW", data->map->content[i][j]))
-				init_player(data, i, j, &start);
-			else if (data->map->content[i][j] == ' ')
-				check_walls(data, i, j) ;
-			else if (!ft_strchr("01", data->map->content[i][j]))
-				ft_error(data, FORBIDDEN_CHAR);
+			validate_position(data, i, j, &start);
 			++j;
 		}
 		++i;

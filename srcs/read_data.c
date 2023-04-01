@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/30 17:47:40 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:18:26 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse_line(char *line, t_data *data)
 
 	i = 0;
 	while (i < 6 && ft_strncmp(line, data->identifiers[i],
-		ft_strlen(data->identifiers[i])) != 0)
+			ft_strlen(data->identifiers[i])) != 0)
 		++i;
 	if (i == 6)
 		ft_error(data, MISSING_DATA);

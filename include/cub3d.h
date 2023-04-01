@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 14:14:50 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:57:14 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ typedef struct s_raycaster {
 	t_double_vect	sideDist;
 	t_double_vect	deltaDist;
 	t_double_vect	rot;
-	double			perpWallDist;
-	double			cameraX;
+	double			perp_wall_dist;
+	double			camera_x;
 	int				hit;
 	int				side;
-	int				lineHeight;
-	int				drawStart;
-	int				drawEnd;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
 }	t_raycaster;
 
 typedef struct s_data
@@ -121,8 +121,8 @@ typedef struct s_data
 	t_img			*texture;
 	t_img			*screen;
 	t_raycaster		*rc;
-	double			moveSpeed;
-	double			rotateSpeed;
+	double			move_speed;
+	double			rotate_speed;
 }					t_data;
 
 /* ************************************************************************** */
@@ -150,7 +150,8 @@ void			read_data(int fd, t_data *data);
 /*                                  read_map.c                                */
 /* ************************************************************************** */
 
-void			read_lines(int fd, t_data *data);
+int				read_lines(t_data *data, int fd, char *line, int *len);
+void			read_content(int fd, t_data *data);
 void			rectangular_map(t_data *data);
 void			read_map(int fd, t_data *data);
 
@@ -160,6 +161,7 @@ void			read_map(int fd, t_data *data);
 
 void			init_player(t_data *data, int i, int j, int *start);
 void			check_walls(t_data *data, int i, int j);
+void			validate_position(t_data *data, int i, int j, int *start);
 void			validate_map(t_data *data);
 
 /* ************************************************************************** */
@@ -168,13 +170,14 @@ void			validate_map(t_data *data);
 
 void			init_data(t_data *data);
 void			init_images(t_data *data);
+void			init_screen(t_data *data);
 
 /* ************************************************************************** */
 /*                                raycaster.c                                 */
 /* ************************************************************************** */
 
-void			followRay(t_data *data);
-void			draw_verLine(t_data *data, int screenX);
+void			follow_ray(t_data *data);
+void			draw_ver_line(t_data *data, int screenX);
 void			raycaster(t_data *data, t_img *img, int start, int end);
 
 /* ************************************************************************** */
@@ -183,8 +186,8 @@ void			raycaster(t_data *data, t_img *img, int start, int end);
 
 void			img_pixel_put(t_img *img, int x, int y, int color);
 t_img			get_texture(t_data *data);
-t_int_vect		get_texCoord(t_data *data, t_img texture);
-void			img_verLine_put(t_data *data, int screenX);
+t_int_vect		get_tex_coord(t_data *data, t_img texture);
+void			img_ver_line_put(t_data *data, int screenX);
 
 /* ************************************************************************** */
 /*                   	        vect_operations.c                             */

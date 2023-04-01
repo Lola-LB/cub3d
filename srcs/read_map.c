@@ -6,13 +6,33 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:13:32 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/28 18:29:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:50:51 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	read_lines(int fd, t_data *data)
+int	read_lines(t_data *data, int fd, char *line, int *len)
+{
+	int	i;
+
+	i = 0;
+	while (line)
+	{
+		if (i == *len)
+		{
+			data->map->content = (char **) ft_realloc(data->map->content,
+					sizeof(char *) * (*len), sizeof(char *) * (*len + MAP_LEN));
+			*len += MAP_LEN;
+		}
+		data->map->content[i] = line;
+		line = get_next_line(fd);
+		i++;
+	}
+	return (i);
+}
+
+void	read_content(int fd, t_data *data)
 {
 	int		i;
 	int		len;
@@ -20,25 +40,15 @@ void	read_lines(int fd, t_data *data)
 
 	len = MAP_LEN;
 	data->map->content = (char **) ft_calloc(len, sizeof(char *));
-	i = 0;
 	line = get_next_line(fd);
 	while (line && *line == '\n')
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
-	while (line)
-	{
-		if (i == len)
-		{
-			data->map->content = (char **) ft_realloc(data->map->content, sizeof(char *) * len, sizeof(char *) * (len + MAP_LEN));
-			len += MAP_LEN;
-		}
-		data->map->content[i] = line;
-		line = get_next_line(fd);
-		++i;
-	}
-	data->map->content = (char **) ft_realloc(data->map->content, sizeof(char *) * (i + 1), sizeof(char *) * len);
+	i = read_lines(data, fd, line, &len);
+	data->map->content = (char **) ft_realloc(data->map->content,
+			sizeof(char *) * (i + 1), sizeof(char *) * len);
 	data->map->content[i] = NULL;
 }
 
@@ -73,7 +83,7 @@ void	rectangular_map(t_data *data)
 
 void	read_map(int fd, t_data *data)
 {
-	read_lines(fd, data);
+	read_content(fd, data);
 	rectangular_map(data);
 	validate_map(data);
 	// printf("valid map\n");
