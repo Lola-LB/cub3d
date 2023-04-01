@@ -36,11 +36,11 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 
 INC_FLAGS	= -I include/ -I $(MLX_DIR)/ -I $(LIBFT_DIR)/
 
-CC			= cc
+CC			= gcc
 
 AR			= ar rcs
 
-C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
+C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD -pg
 
 MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
 #MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
