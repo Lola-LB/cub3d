@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 15:12:34 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:14:04 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,6 @@
 # include <unistd.h>
 # include <math.h>
 
-typedef struct s_img
-{
-	void			*img;
-	char			*addr;
-	int				bpp;
-	int				line_length;
-	int				endian;
-	int				width;
-	int				height;
-}					t_img;
-
 typedef struct s_int_vect
 {
 	int				x;
@@ -90,6 +79,17 @@ typedef struct s_map
 	int				width;
 	int				len;
 }					t_map;
+
+typedef struct s_img
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+}					t_img;
 
 typedef struct s_raycaster {
     t_double_vect	player;

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:45:07 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 14:22:46 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:17:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	init_screen(t_data *data)
 {
 	data->screen->img = mlx_new_image(data->mlx, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
+	if (!data->screen->img)
+		ft_error(data, MLX_ERROR);
 	data->screen->addr = mlx_get_data_addr(data->screen->img,
 			&data->screen->bpp, &data->screen->line_length,
 			&data->screen->endian);
