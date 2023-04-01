@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 14:32:24 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:06:14 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	draw_ver_line(t_data *data, int screen_x)
 	data->rc->camera_x = 2 * screen_x / (double) WINDOW_WIDTH - 1;
 	data->rc->rayDir = vect_sum(data->rc->dir, scalar_mult(data->rc->plane,
 				data->rc->camera_x));
-	data->rc->deltaDist = set_vect(ft_doubleAbs(1 / data->rc->rayDir.x),
-			ft_doubleAbs(1 / data->rc->rayDir.y));
+	data->rc->deltaDist = set_vect(ft_double_abs(1 / data->rc->rayDir.x),
+			ft_double_abs(1 / data->rc->rayDir.y));
 	data->rc->step = set_step(data->rc->rayDir);
 	data->rc->sideDist = side_dist(data);
 	data->rc->hit = 0;

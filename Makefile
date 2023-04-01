@@ -40,7 +40,7 @@ CC			= gcc
 
 AR			= ar rcs
 
-C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD -pg
+C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
 MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
 #MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux

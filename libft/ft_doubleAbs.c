@@ -6,11 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:42:06 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/27 13:43:00 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:07:00 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_doubleAbs(double d)
+double	ft_double_abs(double d)
 {
 	return (((d >= 0) - (d < 0)) * d);
 }
