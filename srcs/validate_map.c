@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 14:57:35 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:47:52 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	check_walls(t_data *data, int i, int j)
 		{
 			if (data->map->content[i + x][j + y] != '1'
 				&& data->map->content[i + x][j + y] != ' ')
+			{
+				if (!ft_strchr("NSEW01 ", data->map->content[i + x][j + y]))
+					ft_error(data, FORBIDDEN_CHAR);
 				ft_error(data, NO_WALLS);
+			}
 			++y;
 		}
 		++x;
@@ -46,21 +50,23 @@ void	init_player(t_data *data, int i, int j, int *start)
 	data->rc->dir.y = (c == 'S') - (c == 'N');
 	data->rc->plane = set_vect(-0.66 * data->rc->dir.y,
 			-0.66 * data->rc->dir.x);
+	if (c == 'S' || c == 'N')
+		data->rc->rot.y *= -1;
 }
 
 void	validate_position(t_data *data, int i, int j, int *start)
 {
-	if ((i == 0 || i == data->map->len || j == 0
+	if (!ft_strchr("NSEW01 ", data->map->content[i][j]))
+		ft_error(data, FORBIDDEN_CHAR);
+	else if ((i == 0 || i == data->map->len || j == 0
 			|| j == data->map->width)
 		&& !(data->map->content[i][j] == '1'
 		|| data->map->content[i][j] == ' '))
 		ft_error(data, NO_WALLS);
-	if (ft_strchr("NSEW", data->map->content[i][j]))
+	else if (ft_strchr("NSEW", data->map->content[i][j]))
 		init_player(data, i, j, start);
 	else if (data->map->content[i][j] == ' ')
 		check_walls(data, i, j);
-	else if (!ft_strchr("01", data->map->content[i][j]))
-		ft_error(data, FORBIDDEN_CHAR);
 }
 
 void	validate_map(t_data *data)
