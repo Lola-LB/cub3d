@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:01:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:50:11 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	rotate_view(int keysym, t_data *data)
 	raycaster(data, data->screen, 0, WINDOW_WIDTH);
 }
 
+/*printf("%i\n", keysym);*/
 int	handle_key(int keysym, t_data *data)
 {
-	// printf("%i\n", keysym);
 	if (keysym == XK_Escape)
 		end_game(data);
 	else if (keysym == W || keysym == A || keysym == S || keysym == D)
