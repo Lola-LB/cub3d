@@ -72,7 +72,7 @@ bonus:		subdirectory $(OBJS_BONUS)
 
 clean:
 	@echo "\033[90mCleaning project...\033[0m"
-	@$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF)
+	@$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF) $(DEP)
 	@echo "\033[92mClean done !\033[0m"
 
 clean_mlx:
