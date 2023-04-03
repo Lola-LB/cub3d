@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:08:31 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:24:50 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	parse_color(t_data *data, char *line)
 
 	tmp = ft_split(line, ',');
 	if (ft_arlen(tmp) != 3
-		&& !(ft_strdigit(tmp[0]) && ft_strdigit(tmp[1]) && ft_strdigit(tmp[2])))
+		|| !(ft_strdigit(tmp[0]) && ft_strdigit(tmp[1]) && ft_strdigit(tmp[2]))
+		|| (ft_strlen(tmp[0]) > 3 || ft_strlen(tmp[1]) > 3 || ft_strlen(tmp[2]) > 3))
 	{
 		ft_free((void **) tmp, 3);
 		ft_error(data, INVALID_DATA);

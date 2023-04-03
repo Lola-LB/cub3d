@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:45:07 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:07:15 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:15:11 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	init_data(t_data *data)
 	data->rc->rot.x = cos(1.1519 * (data->rotate_speed / WINDOW_WIDTH));
 	data->rc->rot.y = sin(1.1519 * (data->rotate_speed / WINDOW_WIDTH));
 	data->screen->img = NULL;
+	data->texture = NULL;
 	data->store_data = (char **) ft_calloc(6, sizeof(char *));
 	if (!data->store_data)
 		ft_error(data, MALLOC_ERROR);
