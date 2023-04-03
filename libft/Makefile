@@ -76,7 +76,7 @@ HEADER		= -I ../include
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fPIE
 
 RM			= rm -f
 

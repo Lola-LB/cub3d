@@ -35,7 +35,7 @@ void	*mlx_init()
 	}
 	xvar->win_list = 0;
 	xvar->loop_hook = 0;
-	xvar->loop_data = (void *)0;
+	xvar->loop_param = (void *)0;
 	xvar->do_flush = 1;
 	xvar->wm_delete_window = XInternAtom (xvar->display, "WM_DELETE_WINDOW", False);
 	xvar->wm_protocols = XInternAtom (xvar->display, "WM_PROTOCOLS", False);

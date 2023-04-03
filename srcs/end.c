@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/03/31 14:16:31 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:04:06 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ void	ft_error(t_data *data, char *error)
 	exit(0);
 }
 
-int	end_game(t_data *data)
+void	free_texture(t_data *data)
 {
 	int	i;
 
-	// printf("texture\n");
 	if (data->texture)
 	{
 		i = 0;
@@ -53,29 +52,28 @@ int	end_game(t_data *data)
 		}
 		free(data->texture);
 	}
-	// printf("screen\n");
+}
+
+int	end_game(t_data *data)
+{
+	free_texture(data);
 	if (data->screen)
 	{
 		if (data->screen->img)
 			mlx_destroy_image(data->mlx, data->screen->img);
 		free(data->screen);
 	}
-	// printf("rc\n");
 	if (data->rc)
 		free(data->rc);
-	// printf("win\n");
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
-	// printf("mlx\n");
 	if (data->mlx)
 	{
-		// mlx_destroy_display(data->mlx); ??
+		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	// printf("map\n");
 	free_map(data->map);
-	// printf("store_data\n");
 	ft_free((void **) data->store_data, 6);
 	exit(0);
-	return (0); //end_game needs to be of type 'int (*)()'
+	return (0);
 }

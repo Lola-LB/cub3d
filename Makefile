@@ -19,7 +19,7 @@ OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
 OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 
-MLX_DIR		= mlx_mac
+MLX_DIR		= mlx
 
 LIBFT_DIR	= libft
 
@@ -42,8 +42,10 @@ AR			= ar rcs
 
 C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
-MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
-#MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
+#MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
+MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
+
+MATH_FLAG	= -lm
 
 RM			= rm -f
 
@@ -54,7 +56,7 @@ NAME		= cub3d
 
 $(NAME):	subdirectory $(OBJS)
 	@echo "\033[90mBuilding cub3d...\033[0m"
-	@$(CC) $(C_FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+	@$(CC) $(C_FLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) $(MATH_FLAG) -o $(NAME)
 	@echo "\033[92mDone !\033[0m"
 
 all:		$(NAME)

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 14:18:26 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:08:31 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ void	parse_line(char *line, t_data *data)
 	if (!data->store_data[i])
 	{
 		data->store_data[i] = ft_strdup(line + ft_strlen(data->identifiers[i]));
-		data->store_data[i][ft_strlen(data->store_data[i]) - 1] = 0;
 		if (!data->store_data[i])
 			ft_error(data, MALLOC_ERROR);
+		data->store_data[i][ft_strlen(data->store_data[i]) - 1] = 0;
 	}
 	else
+	{
+		free(line);
 		ft_error(data, DUPLICATE_DATA);
+	}
+	free(line);
 }
 
 int	parse_color(t_data *data, char *line)
@@ -55,15 +59,15 @@ void	read_data(int fd, t_data *data)
 	char	*line;
 	int		id;
 
-	data->store_data = (char **) ft_calloc(6, sizeof(char *));
-	if (!data->store_data)
-		ft_error(data, MALLOC_ERROR);
 	id = 0;
 	line = get_next_line(fd);
 	while (id != 6 && line)
 	{
 		while (line && *line == '\n')
+		{
+			free(line);
 			line = get_next_line(fd);
+		}
 		if (line)
 		{
 			parse_line(line, data);
@@ -71,6 +75,8 @@ void	read_data(int fd, t_data *data)
 			++id;
 		}
 	}
+	if (line)
+		free(line);
 	if (id != 6)
 		ft_error(data, MISSING_DATA);
 	data->floor_color = parse_color(data, data->store_data[4]);

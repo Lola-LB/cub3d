@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 15:14:04 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:53:53 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@
 # define MAP_LEN 50
 
 // Changer les n° des touches entre LINUX et MAC
-# define W 126 //119 //65362
-# define A 123 //97  //65361
-# define S 125 //115 //65364
-# define D 124 //100 //65363
+# define W 119 //65362 //126
+# define A 97  //65361 //123
+# define S 115 //65364 //125
+# define D 100 //65363 //124
 
-# define DEBUG 49
+# define DEBUG 32 //49
 
-# define LEFT 12
-# define RIGHT 13
+# define LEFT 65361 //12
+# define RIGHT 65363 //13
 
 # define NO 0
 # define SO 1 
 # define WE 2
 # define EA 3
 
-# define XK_Escape 53 // MAX
-// # include <X11/keysym.h> // LINUX
+// # define XK_Escape 53 // MAX
+# include <X11/keysym.h> // LINUX
 
 # include "libft.h"
 # include "mlx.h"
@@ -186,7 +186,7 @@ void			raycaster(t_data *data, t_img *img, int start, int end);
 /* ************************************************************************** */
 
 void			img_pixel_put(t_img *img, int x, int y, int color);
-t_img			get_texture(t_data *data);
+t_img			*get_texture(t_data *data);
 t_int_vect		get_tex_coord(t_data *data, t_img texture);
 void			img_ver_line_put(t_data *data, int screenX);
 
