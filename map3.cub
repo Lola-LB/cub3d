@@ -1,9 +1,9 @@
-NO ./files/ground.xpm
-SO ./files/ground.xpm
-WE ./files/ground.xpm
-EA ./files/ground.xpm
+NO ./files/leaves.xpm
+SO ./files/leaves.xpm
+WE ./files/leaves.xpm
+EA ./files/leaves.xpm
 
-F 000,000,051
+F 102,051,000
 C 143,197,220
 
         1111111111111111111111111
