@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/01 15:06:14 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:23:16 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	raycaster(t_data *data, t_img *img, int start, int end)
 {
 	int			screen_x;
 
-	create_background(data, img);
 	screen_x = start;
 	while (screen_x < end)
 	{

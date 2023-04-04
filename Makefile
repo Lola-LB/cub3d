@@ -9,7 +9,6 @@ SRCS		= main.c				\
 			  vect_operations.c		\
 			  events.c				\
 			  end.c					\
-			  utils.c				\
 			  debug.c				\
 
 SRCS_BONUS	= main_bonus.c			\
@@ -19,7 +18,7 @@ OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
 OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 
-MLX_DIR		= mlx
+MLX_DIR		= mlx_mac
 
 LIBFT_DIR	= libft
 
@@ -42,8 +41,8 @@ AR			= ar rcs
 
 C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
-#MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
-MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
+MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
+# MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
 
 MATH_FLAG	= -lm
 

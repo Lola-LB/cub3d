@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 10:53:53 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:24:49 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,35 @@
 
 # define MAP_LEN 50
 
-// Changer les n° des touches entre LINUX et MAC
-# define W 119 //65362 //126
-# define A 97  //65361 //123
-# define S 115 //65364 //125
-# define D 100 //65363 //124
+// // LINUX
+// # define W 119 //65362
+// # define A 97  //65361
+// # define S 115 //65364
+// # define D 100 //65363
 
-# define DEBUG 32 //49
+// MAC
+# define W 126
+# define A 123
+# define S 125
+# define D 124
 
-# define LEFT 65361 //12
-# define RIGHT 65363 //13
+// # define DEBUG 32
+
+// # define LEFT 65361
+// # define RIGHT 65363
+
+# define DEBUG 49
+
+# define LEFT 12
+# define RIGHT 13
 
 # define NO 0
 # define SO 1 
 # define WE 2
 # define EA 3
 
-// # define XK_Escape 53 // MAX
-# include <X11/keysym.h> // LINUX
+# define XK_Escape 53 // MAX
+// # include <X11/keysym.h> // LINUX
 
 # include "libft.h"
 # include "mlx.h"
@@ -198,7 +209,7 @@ t_double_vect	scalar_mult(t_double_vect v, double lambda);
 t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
 t_double_vect	set_vect(double x, double y);
 t_double_vect	set_step(t_double_vect v);
-double			scalar_product(t_double_vect u, t_double_vect v);
+t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left);
 
 /* ************************************************************************** */
 /*                   	        	 events.c                                 */
@@ -217,13 +228,6 @@ int				handle_key(int keysym, t_data *data);
 void			free_map(t_map *map);
 void			ft_error(t_data *data, char *error);
 int				end_game(t_data *data);
-
-/* ************************************************************************** */
-/*                   	             utils.c                                  */
-/* ************************************************************************** */
-
-t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left);
-void			create_background(t_data *data, t_img *img);
 
 /* ************************************************************************** */
 /*                   	             debug.c                                  */

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:06:01 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:19:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,22 @@ void	img_ver_line_put(t_data *data, int screenX)
 
 	texture = get_texture(data);
 	tex = get_tex_coord(data, *texture);
-	y = ft_max(0, data->rc->draw_start);
+	y = 0;
 	step = (double) texture->height
 		/ (double)(data->rc->draw_end - data->rc->draw_start);
-	while (y < ft_min(data->rc->draw_end, WINDOW_HEIGHT - 1))
+	while (y < WINDOW_HEIGHT)
 	{
-		tex.y = ft_min((int)((y - data->rc->draw_start) * step),
-				texture->height - 1);
-		color = *(int *)(texture->addr + texture->line_length * tex.y
-				+ tex.x * (texture->bpp / 8));
+		if (y < data->rc->draw_start)
+			color = data->ceiling_color;
+		else if (y < data->rc->draw_end)
+		{
+			tex.y = ft_min((int)((y - data->rc->draw_start) * step),
+					texture->height - 1);
+			color = *(int *)(texture->addr + texture->line_length * tex.y
+					+ tex.x * (texture->bpp / 8));
+		}
+		else
+			color = data->floor_color;
 		img_pixel_put(data->screen, screenX, y, color);
 		++y;
 	}
