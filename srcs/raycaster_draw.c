@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 18:19:30 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:01:00 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,31 @@ t_int_vect	get_tex_coord(t_data *data, t_img texture)
 	return (tex);
 }
 
-void	img_ver_line_put(t_data *data, int screenX)
+void	img_ver_line_put(t_data *data, t_img *texture, int screenX, int y)
 {
-	t_img		*texture;
 	t_int_vect	tex;
+	char		*addr;
 	int			color;
 	double		step;
-	int			y;
 
-	texture = get_texture(data);
 	tex = get_tex_coord(data, *texture);
-	y = 0;
-	step = (double) texture->height
+	addr = texture->addr + tex.x * (texture->bpp / 8);
+	step = (double)(texture->height - 1)
 		/ (double)(data->rc->draw_end - data->rc->draw_start);
+	while (y < data->rc->draw_start)
+	{
+		color = data->ceiling_color;
+		img_pixel_put(data->screen, screenX, y++, color);
+	}
+	while (y < data->rc->draw_end)
+	{
+		tex.y = (int)((y - data->rc->draw_start) * step);
+		color = *(int *)(addr + texture->line_length * tex.y);
+		img_pixel_put(data->screen, screenX, y++, color);
+	}
 	while (y < WINDOW_HEIGHT)
 	{
-		if (y < data->rc->draw_start)
-			color = data->ceiling_color;
-		else if (y < data->rc->draw_end)
-		{
-			tex.y = ft_min((int)((y - data->rc->draw_start) * step),
-					texture->height - 1);
-			color = *(int *)(texture->addr + texture->line_length * tex.y
-					+ tex.x * (texture->bpp / 8));
-		}
-		else
-			color = data->floor_color;
-		img_pixel_put(data->screen, screenX, y, color);
-		++y;
+		color = data->floor_color;
+		img_pixel_put(data->screen, screenX, y++, color);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:50:11 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:26:42 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	move_player(int keysym, t_data *data)
 	if (check_move(data, new_pos))
 	{
 		data->rc->player = new_pos;
-		raycaster(data, data->screen, 0, WINDOW_WIDTH);
+		raycaster(data, 0, WINDOW_WIDTH);
 	}
 }
 
@@ -68,11 +68,11 @@ void	rotate_view(int keysym, t_data *data)
 	data->rc->plane = rotate_vect(data, data->rc->plane, (keysym == LEFT));
 	shift_screen(data, keysym == LEFT);
 	if (keysym == LEFT)
-		raycaster(data, data->screen, 0, data->rotate_speed);
+		raycaster(data, 0, data->rotate_speed);
 	else if (keysym == RIGHT)
-		raycaster(data, data->screen, WINDOW_WIDTH - data->rotate_speed,
+		raycaster(data, WINDOW_WIDTH - data->rotate_speed,
 			WINDOW_WIDTH);
-	raycaster(data, data->screen, 0, WINDOW_WIDTH);
+	raycaster(data, 0, WINDOW_WIDTH);
 }
 
 /*printf("%i\n", keysym);*/

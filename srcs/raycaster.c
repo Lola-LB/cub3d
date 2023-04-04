@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:52:50 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 18:23:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:00:28 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	draw_ver_line(t_data *data, int screen_x)
 	data->rc->line_height = (int)(WINDOW_HEIGHT / data->rc->perp_wall_dist);
 	data->rc->draw_start = -data->rc->line_height / 2 + WINDOW_HEIGHT / 2;
 	data->rc->draw_end = data->rc->line_height / 2 + WINDOW_HEIGHT / 2;
-	img_ver_line_put(data, screen_x);
+	img_ver_line_put(data, get_texture(data), screen_x, 0);
 }
 
-void	raycaster(t_data *data, t_img *img, int start, int end)
+void	raycaster(t_data *data, int start, int end)
 {
 	int			screen_x;
 
@@ -77,5 +77,5 @@ void	raycaster(t_data *data, t_img *img, int start, int end)
 		draw_ver_line(data, screen_x);
 		++screen_x;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, img->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->screen->img, 0, 0);
 }
