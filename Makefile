@@ -14,9 +14,9 @@ SRCS		= main.c				\
 OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
 # LINUX
-# MLX_DIR		= mlx
+MLX_DIR		= mlx
 # MAC
-MLX_DIR		= mlx_mac
+# MLX_DIR		= mlx_mac
 
 LIBFT_DIR	= libft
 
@@ -34,10 +34,10 @@ CC			= cc
 
 AR			= ar rcs
 
-C_FLAGS		= -Wall -Wextra -Werror -MMD
+C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
-MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
-# MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
+# MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
+MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
 
 MATH_FLAG	= -lm
 
