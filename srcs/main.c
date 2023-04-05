@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 18:26:27 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:34:55 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	launch_game(t_data	*data)
 	init_images(data);
 	init_screen(data);
 	raycaster(data, 0, WINDOW_WIDTH);
+	mlx_mouse_get_pos(data->mlx, data->win, &data->mouse.x, &data->mouse.y);
 	mlx_hook(win, 2, (1L << 0), &handle_key, data);
 	mlx_hook(win, 17, (1L << 1), &end_game, data);
 	mlx_loop(mlx);

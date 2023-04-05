@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:27:37 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 18:24:09 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:20:03 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,14 @@ t_double_vect	set_step(t_double_vect v)
 	return (i);
 }
 
-t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left)
+t_double_vect	rotate_vect(t_data *data, t_double_vect v, double alpha)
 {
-	t_double_vect	new_vect;
+	t_double_vect	rot;
+	t_double_vect	u;
 
-	if (left)
-	{
-		new_vect.x = data->rc->rot.x * vect.x
-			- data->rc->rot.y * vect.y;
-		new_vect.y = data->rc->rot.y * vect.x
-			+ data->rc->rot.x * vect.y;
-	}
-	else
-	{
-		new_vect.x = data->rc->rot.x * vect.x
-			+ data->rc->rot.y * vect.y;
-		new_vect.y = -data->rc->rot.y * vect.x
-			+ data->rc->rot.x * vect.y;
-	}
-	return (new_vect);
+	rot.x = cos(alpha * data->rotate_speed / (double) WINDOW_HEIGHT);
+	rot.y = sin(alpha * data->rotate_speed / (double) WINDOW_HEIGHT);
+	u.x = rot.x * v.x - rot.y * v.y;
+	u.y = rot.y * v.x + rot.x * v.y;
+	return (u);
 }

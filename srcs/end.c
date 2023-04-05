@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/05 11:03:19 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:35:23 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	end_game(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
 	{
-		mlx_destroy_display(data->mlx); // Linux
+		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
 	free_map(data->map);

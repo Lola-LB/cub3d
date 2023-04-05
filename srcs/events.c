@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 18:26:42 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:34:58 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ int	check_move(t_data *data, t_double_vect new_pos)
 void	move_player(int keysym, t_data *data)
 {
 	t_double_vect	new_pos;
+	double			alpha;
 	int				way;
 
+	mlx_mouse_get_pos(data->mlx, data->win, &data->mouse.x, &data->mouse.y);
+	alpha = (2 * (double) data->mouse.x / (double) WINDOW_WIDTH - 1) * -1.1519;
 	new_pos = data->rc->player;
+	rotate_view(data, alpha);
 	way = (keysym == W) + (keysym == D) - (keysym == S) - (keysym == A);
 	if (keysym == W || keysym == S)
 		new_pos = vect_sum(new_pos, scalar_mult(data->rc->dir,
@@ -46,32 +50,10 @@ void	move_player(int keysym, t_data *data)
 	}
 }
 
-void	shift_screen(t_data *data, int left)
+void	rotate_view(t_data *data, double alpha)
 {
-	if (left)
-	{
-		ft_memmove((int *) data->screen->addr + (int)data->rotate_speed,
-			(int *) data->screen->addr, data->screen->line_length
-			* data->screen->height - (int) data->rotate_speed);
-	}
-	else
-	{
-		ft_memmove((int *) data->screen->addr, (int *) data->screen->addr
-			+ (int) data->rotate_speed, data->screen->line_length
-			* data->screen->height - (int) data->rotate_speed);
-	}
-}
-
-void	rotate_view(int keysym, t_data *data)
-{
-	data->rc->dir = rotate_vect(data, data->rc->dir, (keysym == LEFT));
-	data->rc->plane = rotate_vect(data, data->rc->plane, (keysym == LEFT));
-	shift_screen(data, keysym == LEFT);
-	if (keysym == LEFT)
-		raycaster(data, 0, data->rotate_speed);
-	else if (keysym == RIGHT)
-		raycaster(data, WINDOW_WIDTH - data->rotate_speed,
-			WINDOW_WIDTH);
+	data->rc->dir = rotate_vect(data, data->rc->dir, alpha);
+	data->rc->plane = rotate_vect(data, data->rc->plane, alpha);
 	raycaster(data, 0, WINDOW_WIDTH);
 }
 
@@ -84,7 +66,9 @@ int	handle_key(int keysym, t_data *data)
 		move_player(keysym, data);
 	else if (keysym == DEBUG)
 		print_rc(data);
-	else if (keysym == LEFT || keysym == RIGHT)
-		rotate_view(keysym, data);
+	else if (keysym == RIGHT)
+		rotate_view(data, -data->alpha);
+	else if (keysym == LEFT)
+		rotate_view(data, data->alpha);
 	return (0);
 }

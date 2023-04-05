@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/05 11:02:59 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:34:55 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ typedef struct s_data
 	t_raycaster		*rc;
 	double			move_speed;
 	double			rotate_speed;
+	double			alpha;
+	t_int_vect		mouse;
 }					t_data;
 
 /* ************************************************************************** */
@@ -205,7 +207,7 @@ t_double_vect	scalar_mult(t_double_vect v, double lambda);
 t_double_vect	vect_sum(t_double_vect u, t_double_vect v);
 t_double_vect	set_vect(double x, double y);
 t_double_vect	set_step(t_double_vect v);
-t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left);
+t_double_vect	rotate_vect(t_data *data, t_double_vect v, double alpha);
 
 /* ************************************************************************** */
 /*                   	        	 events.c                                 */
@@ -213,8 +215,7 @@ t_double_vect	rotate_vect(t_data *data, t_double_vect vect, int left);
 
 int				check_move(t_data *data, t_double_vect newPos);
 void			move_player(int keysym, t_data *data);
-void			shift_screen(t_data *data, int left);
-void			rotate_view(int keysym, t_data *data);
+void			rotate_view(t_data *data, double alpha);
 int				handle_key(int keysym, t_data *data);
 
 /* ************************************************************************** */
