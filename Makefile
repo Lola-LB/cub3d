@@ -11,20 +11,14 @@ SRCS		= main.c				\
 			  end.c					\
 			  debug.c				\
 
-SRCS_BONUS	= main_bonus.c			\
-			  map_check_bonus.c		\
-
 OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
-OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
-
-MLX_DIR		= mlx 			# Linux
-# MLX_DIR	= mlx_mac 		# Max
+# LINUX
+# MLX_DIR		= mlx
+# MAC
+MLX_DIR		= mlx_mac
 
 LIBFT_DIR	= libft
-
-SUBDIRS		= $(MLX_DIR)			\
-			  $(LIBFT_DIR)			\
 
 INCLUDE		= $(LIBFT_DIR)/libft.h	\
 			  $(MLX_DIR)/mlx.h		\
@@ -34,16 +28,16 @@ DEP			= $(OBJS:.o=.d)			\
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-INC_FLAGS	= -I include/ -I $(MLX_DIR)/ -I $(LIBFT_DIR)/
+INC_FLAGS	= -I include/ -I $(LIBFT_DIR)/ -I $(MLX_DIR)/
 
-CC			= gcc
+CC			= cc
 
 AR			= ar rcs
 
-C_FLAGS		= -g3 -Wall -Wextra -Werror -MMD
+C_FLAGS		= -Wall -Wextra -Werror -MMD
 
-# MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
-MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
+MLX_FLAGS	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit	# Mac
+# MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11								# Linux
 
 MATH_FLAG	= -lm
 
@@ -66,9 +60,6 @@ subdirectory:
 	@$(MAKE) -s -C $(MLX_DIR)
 	@echo "\033[90mBuilding libft...\033[0m"
 	@$(MAKE) -s -C $(LIBFT_DIR)
-		
-bonus:		subdirectory $(OBJS_BONUS)
-	@$(CC) $(C_FLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	@echo "\033[90mCleaning project...\033[0m"
@@ -99,4 +90,4 @@ re:		fclean all
 
 -include : $(DEP)
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all subdirectory clean clean_libft clean_mlx fclean fclean_libft re

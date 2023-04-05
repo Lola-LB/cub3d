@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/04 19:03:57 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:05:09 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,31 @@
 
 # define MAP_LEN 50
 
-// LINUX
-# define W 119 //65362
-# define A 97  //65361
-# define S 115 //65364
-# define D 100 //65363
-# define DEBUG 32
-# define LEFT 65361
-# define RIGHT 65363
+// // LINUX
+// # define W 119 //65362
+// # define A 97  //65361
+// # define S 115 //65364
+// # define D 100 //65363
+// # define DEBUG 32
+// # define LEFT 65361
+// # define RIGHT 65363
 
-// // MAC
-// # define W 126
-// # define A 123
-// # define S 125
-// # define D 124
-// # define DEBUG 49
-// # define LEFT 12
-// # define RIGHT 13
+// MAC
+# define W 126
+# define A 123
+# define S 125
+# define D 124
+# define DEBUG 49
+# define LEFT 12
+# define RIGHT 13
 
 # define NO 0
 # define SO 1 
 # define WE 2
 # define EA 3
 
-// # define XK_Escape 53 // MAX
-# include <X11/keysym.h> // LINUX
+# define XK_Escape 53 // MAX
+// # include <X11/keysym.h> // LINUX
 
 # include "libft.h"
 # include "mlx.h"
