@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/05 13:34:55 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:43:32 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,23 @@
 
 # define MAP_LEN 50
 
-// LINUX
-# define W 119 //65362
-# define A 97  //65361
-# define S 115 //65364
-# define D 100 //65363
+// LINUX VM
+# define W 65362
+# define A 65361
+# define S 65364
+# define D 65363
 # define DEBUG 32
-# define LEFT 65361
-# define RIGHT 65363
+# define LEFT 97
+# define RIGHT 65307
+
+// // LINUX
+// # define W 119 //65362
+// # define A 97  //65361
+// # define S 115 //65364
+// # define D 100 //65363
+// # define DEBUG 32
+// # define LEFT 65361
+// # define RIGHT 65363
 
 // // MAC
 // # define W 126
