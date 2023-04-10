@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"cub3d": "c",
-		"math.h": "c",
-		"fcntl.h": "c"
-	}
-}
