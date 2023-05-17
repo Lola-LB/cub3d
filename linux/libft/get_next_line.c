@@ -87,7 +87,11 @@ char	*get_next_line(int fd)
 	char		*res;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
+	{
+		if (lines)
+			free(lines);
 		return (NULL);
+	}
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (NULL);

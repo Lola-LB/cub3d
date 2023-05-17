@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:11:33 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/03 13:49:37 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:16:16 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,31 @@
 void	parse_line(char *line, t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (i < 6 && ft_strncmp(line, data->identifiers[i],
+	j = 0;
+	while (*(line + j) == ' ')
+		++j;
+	while (i < 6 && ft_strncmp(line + j, data->identifiers[i],
 			ft_strlen(data->identifiers[i])) != 0)
 		++i;
 	if (i == 6)
+	{
+		free(line);
 		ft_error(data, MISSING_DATA);
+	}
 	if (!data->store_data[i])
 	{
-		data->store_data[i] = ft_strdup(line + ft_strlen(data->identifiers[i]));
+		j += ft_strlen(data->identifiers[i]);
+		while (*(line + j) == ' ')
+			++j;
+		data->store_data[i] = ft_strdup(line + j);
 		if (!data->store_data[i])
+		{
+			free(line);
 			ft_error(data, MALLOC_ERROR);
+		}
 		data->store_data[i][ft_strlen(data->store_data[i]) - 1] = 0;
 	}
 	else

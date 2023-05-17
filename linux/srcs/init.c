@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:45:07 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/05 13:30:46 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:13:30 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_images(t_data *data)
 				&data->texture[i].height);
 		if (!data->texture[i].img)
 			ft_error(data, FILE_ERROR);
-		data->texture[i].addr = mlx_get_data_addr(data->texture->img,
+		data->texture[i].addr = mlx_get_data_addr(data->texture[i].img,
 				&data->texture[i].bpp, &data->texture[i].line_length,
 				&data->texture[i].endian);
 		++i;

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/04/05 13:38:45 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:13:03 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_img	*get_texture(t_data *data)
 	t_img	*texture;
 	int		id;
 
-	if (data->rc->side)
+	if (!data->rc->side)
 	{
 		id = (EA * (data->rc->step.x == -1)
 				+ WE * (data->rc->step.x == 1));
